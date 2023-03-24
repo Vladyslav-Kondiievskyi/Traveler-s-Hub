@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+//todo by Kostiantyn - Hotel, Order. DTO, repository, service
 
 @Getter
 @Setter
