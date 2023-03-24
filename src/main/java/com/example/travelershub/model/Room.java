@@ -8,10 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-
 import lombok.Getter;
 import lombok.Setter;
 
+//todo Vladyslav - Room, User. DTO, repository, service
 @Getter
 @Setter
 @Entity(name = "rooms")
