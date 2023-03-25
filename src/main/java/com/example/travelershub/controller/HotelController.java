@@ -36,8 +36,7 @@ public class HotelController {
 
     @GetMapping("/inject")
     public String inject(@RequestParam(defaultValue = "5") Integer count) {
-        int maxRooms = 200;
-        int minRooms = 100;
+        int maxRooms = 30;
         BigDecimal[] prices = {BigDecimal.valueOf(100),
                 BigDecimal.valueOf(200),
                 BigDecimal.valueOf(300),
@@ -85,14 +84,14 @@ public class HotelController {
             hotel.setRating(ratings[i]);
             hotel.setStars(stars[i]);
             List<Room> rooms = new ArrayList<>();
-        for (int k = minRooms; k < new Random().nextInt(maxRooms); k++) {
-            Room room = new Room();
-            room.setNumber(i + 1);
-            room.setPrice(prices[new Random().nextInt(prices.length)]);
-            room.setCapacity(capacities[new Random().nextInt(capacities.length)]);
+        for (int k = 0; k < maxRooms; k++) {
+                Room room = new Room();
+                room.setNumber(k + 1);
+                room.setPrice(prices[new Random().nextInt(prices.length)]);
+                room.setCapacity(capacities[new Random().nextInt(capacities.length)]);
                 room.setPicturesUrl(pictureUrl);
-                roomService.save(room);
                 rooms.add(room);
+                roomService.save(room);
             }
             hotel.setRooms(rooms);
             hotelService.save(hotel);
