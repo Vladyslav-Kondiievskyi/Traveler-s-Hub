@@ -1,6 +1,6 @@
 package com.example.travelershub.model;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,5 +22,5 @@ public class User {
     private String telephone;
     private String password;
     @ManyToMany
-    private List<Role> roles;
+    private Set<Role> roles;
 }
