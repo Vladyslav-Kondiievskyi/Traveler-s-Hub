@@ -65,7 +65,6 @@ public class HotelController {
         BigDecimal[] ratings = {BigDecimal.valueOf(4.9), BigDecimal.valueOf(4.8), BigDecimal.valueOf(4.7), BigDecimal.valueOf(4.6), BigDecimal.valueOf(4.5), BigDecimal.valueOf(4.4), BigDecimal.valueOf(4.3), BigDecimal.valueOf(4.2), BigDecimal.valueOf(4.1), BigDecimal.valueOf(4.0)};
         Integer[] stars = {5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
 
-
         for (int i = 0; i < count; i++) {
             Hotel hotel = new Hotel();
             hotel.setName(names[new Random().nextInt(names.length)]);
