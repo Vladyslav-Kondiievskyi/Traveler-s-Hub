@@ -1,9 +1,9 @@
 package com.example.travelershub.service.impl;
 
-import java.util.Optional;
 import com.example.travelershub.model.User;
 import com.example.travelershub.repository.UserRepository;
 import com.example.travelershub.service.UserService;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service

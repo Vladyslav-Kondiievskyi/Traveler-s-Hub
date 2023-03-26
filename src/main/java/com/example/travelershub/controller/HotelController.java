@@ -1,12 +1,17 @@
 package com.example.travelershub.controller;
 
+import com.example.travelershub.dto.request.ReviewRequestDto;
+import com.example.travelershub.dto.response.HotelResponseDto;
 import com.example.travelershub.model.Amenity;
 import com.example.travelershub.model.Hotel;
+import com.example.travelershub.model.Review;
 import com.example.travelershub.model.Room;
 import com.example.travelershub.service.AmenityService;
 import com.example.travelershub.service.HotelService;
 import com.example.travelershub.service.ReviewService;
 import com.example.travelershub.service.RoomService;
+import com.example.travelershub.service.mapper.RequestDtoMapper;
+import com.example.travelershub.service.mapper.ResponseDtoMapper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +19,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,11 +38,64 @@ public class HotelController {
     private final ReviewService reviewService;
     private final AmenityService amenityService;
 
-    public HotelController(HotelService hotelService, RoomService roomService, ReviewService reviewService, AmenityService amenityService) {
+    private final ResponseDtoMapper<HotelResponseDto, Hotel> hotelResponseDtoMapper;
+
+    private final RequestDtoMapper<ReviewRequestDto, Review> reviewRequestDtoMapper;
+
+    public HotelController(HotelService hotelService, RoomService roomService,
+                           ReviewService reviewService, AmenityService amenityService,
+                           ResponseDtoMapper<HotelResponseDto, Hotel> hotelResponseDtoMapper,
+                           RequestDtoMapper<ReviewRequestDto, Review> reviewRequestDtoMapper) {
         this.hotelService = hotelService;
         this.roomService = roomService;
         this.reviewService = reviewService;
         this.amenityService = amenityService;
+        this.hotelResponseDtoMapper = hotelResponseDtoMapper;
+        this.reviewRequestDtoMapper = reviewRequestDtoMapper;
+    }
+
+    @GetMapping("/all")
+    public List<HotelResponseDto> getAll() {
+        return hotelService.getAll().stream()
+                .map(hotelResponseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/min_rating{rating}")
+    public List<HotelResponseDto> findAllByRatingIsGreaterThan(@PathVariable BigDecimal rating) {
+        return hotelService.findAllByRatingIsGreaterThan(rating)
+                .stream()
+                .map(hotelResponseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @PutMapping("/{id}")
+    public HotelResponseDto addReview(@PathVariable Long id,
+                                      @RequestBody ReviewRequestDto reviewRequestDto) {
+        reviewService.save(reviewRequestDtoMapper.mapToModel(reviewRequestDto));
+        return hotelResponseDtoMapper.mapToDto(hotelService.addReview(id,reviewRequestDtoMapper
+                .mapToModel(reviewRequestDto)));
+    }
+
+    @GetMapping("/rating")
+    public List<HotelResponseDto> findAllByRatingBetween(@RequestParam BigDecimal from,
+                                                         @RequestParam BigDecimal to) {
+        return hotelService.getAllByRatingBetween(from, to)
+                .stream()
+                .map(hotelResponseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/amenities/{amenities}")
+    public List<Hotel> getHotelsByAmenities(@PathVariable List<Amenity.AmenityName> amenities) {
+        return hotelService.findHotelByAmenities(amenities);
+    }
+
+    @PostMapping("/{hotelId}/reviews")
+    public ResponseEntity<String> addReviewToHotel(@PathVariable Long hotelId,
+                                                   @RequestBody Review review) {
+        hotelService.addReviewToHotel(hotelId, review);
+        return ResponseEntity.ok("Review added to hotel with id " + hotelId);
     }
 
     @GetMapping("/inject")
@@ -70,10 +134,10 @@ public class HotelController {
             hotel.setName(names[new Random().nextInt(names.length)]);
             Set<Amenity> amenitySet = new HashSet<>();
             for (int j = 0; j < amenities.length; j++) {
-                if(new Random().nextInt(10) % 2 == 0) {
+                if (new Random().nextInt(10) % 2 == 0) {
                     amenitySet.add(amenities[i]);
+                }
             }
-        }
             hotel.setAmenities(amenitySet);
             hotel.setPicturesUrl(Collections.singletonList(pictureUrl.get(i)));
             hotel.setAddress(addresses[i]);
@@ -83,7 +147,7 @@ public class HotelController {
             hotel.setRating(ratings[i]);
             hotel.setStars(stars[i]);
             List<Room> rooms = new ArrayList<>();
-        for (int k = 0; k < maxRooms; k++) {
+            for (int k = 0; k < maxRooms; k++) {
                 Room room = new Room();
                 room.setNumber(k + 1);
                 room.setPrice(prices[new Random().nextInt(prices.length)]);

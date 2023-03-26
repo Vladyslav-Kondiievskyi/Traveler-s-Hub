@@ -33,7 +33,9 @@ public class Hotel {
             inverseJoinColumns = @JoinColumn(name = "rooms_id"))
     private List<Room> rooms;
     @OneToMany
-    @JoinColumn(name = "review_id")
+    @JoinTable(name = "hotels_reviews",
+            joinColumns = @JoinColumn(name = "hotel_id"),
+            inverseJoinColumns = @JoinColumn(name = "review_id"))
     @Builder.Default
     private List<Review> reviews = new ArrayList<>();
     @ManyToMany

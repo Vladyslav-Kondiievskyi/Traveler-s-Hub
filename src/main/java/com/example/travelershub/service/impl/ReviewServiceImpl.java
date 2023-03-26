@@ -3,6 +3,7 @@ package com.example.travelershub.service.impl;
 import com.example.travelershub.model.Review;
 import com.example.travelershub.repository.ReviewRepository;
 import com.example.travelershub.service.ReviewService;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,5 +32,10 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void deleteById(Long id) {
         reviewRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Review> getAllByHotel(Long hotelId) {
+        return reviewRepository.getAllByHotel(hotelId);
     }
 }

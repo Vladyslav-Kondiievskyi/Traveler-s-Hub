@@ -4,9 +4,9 @@ import com.example.travelershub.model.Order;
 import com.example.travelershub.model.User;
 import com.example.travelershub.repository.OrderRepository;
 import com.example.travelershub.service.OrderService;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;

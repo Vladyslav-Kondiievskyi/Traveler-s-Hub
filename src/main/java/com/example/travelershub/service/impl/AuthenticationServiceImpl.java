@@ -1,11 +1,11 @@
 package com.example.travelershub.service.impl;
 
-import java.util.Set;
 import com.example.travelershub.model.Role;
 import com.example.travelershub.model.User;
 import com.example.travelershub.service.AuthenticationService;
 import com.example.travelershub.service.RoleService;
 import com.example.travelershub.service.UserService;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,8 +19,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public User register(String email, String password, String telephone, String firstName, String lastName) {
-        User user =new User();
+    public User register(String email, String password,
+                         String telephone, String firstName, String lastName) {
+        User user = new User();
         user.setEmail(email);
         user.setPassword(password);
         user.setTelephone(telephone);
