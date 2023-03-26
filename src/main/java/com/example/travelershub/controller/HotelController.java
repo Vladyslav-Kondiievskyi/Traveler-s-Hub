@@ -72,8 +72,8 @@ public class HotelController {
             for (int j = 0; j < amenities.length; j++) {
                 if(new Random().nextInt(10) % 2 == 0) {
                     amenitySet.add(amenities[i]);
+                }
             }
-        }
             hotel.setAmenities(amenitySet);
             hotel.setPicturesUrl(Collections.singletonList(pictureUrl.get(i)));
             hotel.setAddress(addresses[i]);
@@ -83,7 +83,7 @@ public class HotelController {
             hotel.setRating(ratings[i]);
             hotel.setStars(stars[i]);
             List<Room> rooms = new ArrayList<>();
-        for (int k = 0; k < maxRooms; k++) {
+            for (int k = 0; k < maxRooms; k++) {
                 Room room = new Room();
                 room.setNumber(k + 1);
                 room.setPrice(prices[new Random().nextInt(prices.length)]);

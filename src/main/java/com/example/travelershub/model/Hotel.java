@@ -33,7 +33,7 @@ public class Hotel {
             inverseJoinColumns = @JoinColumn(name = "rooms_id"))
     private List<Room> rooms;
     @OneToMany
-    @JoinColumn(name = "review_id")
+    @JoinColumn(name = "hotel_id")
     @Builder.Default
     private List<Review> reviews = new ArrayList<>();
     @ManyToMany
