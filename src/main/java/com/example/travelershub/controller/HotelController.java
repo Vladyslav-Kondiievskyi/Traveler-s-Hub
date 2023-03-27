@@ -37,7 +37,6 @@ public class HotelController {
     private final RoomService roomService;
     private final ReviewService reviewService;
     private final AmenityService amenityService;
-
     private final ResponseDtoMapper<HotelResponseDto, Hotel> hotelResponseDtoMapper;
 
     private final RequestDtoMapper<ReviewRequestDto, Review> reviewRequestDtoMapper;
@@ -107,7 +106,8 @@ public class HotelController {
                 BigDecimal.valueOf(400),
                 BigDecimal.valueOf(500)};
         int [] capacities = {1, 2, 3, 4, 5};
-        List<String> pictureUrl = List.of("https://www.ahstatic.com/photos/1276_ho_00_p_1024x768.jpg",
+        List<String> pictureUrl = List.of(
+                "https://www.ahstatic.com/photos/1276_ho_00_p_1024x768.jpg",
                 "https://www.murhotels.com/cache/40/b3/40b3566310d686be665d9775f59ca9cd.jpg",
                 "https://www.h-hotels.com/_Resources/Persistent/0/1/a/4/01a400d0047f4b7599631797fc27ceabf9e68db3/aussenansicht-nacht-03-h4-hotel-berlin-alexanderplatz-2400x1113.jpg",
                 "https://media.radissonhotels.net/image/metropolitan-hotel-sofia-a-member-of-radisson-individuals/exteriorview/16256-145921-f72742573_3xl.jpg?impolicy=Card&gravity=North",
