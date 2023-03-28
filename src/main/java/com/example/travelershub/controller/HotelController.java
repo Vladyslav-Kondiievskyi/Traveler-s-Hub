@@ -12,6 +12,7 @@ import com.example.travelershub.service.ReviewService;
 import com.example.travelershub.service.RoomService;
 import com.example.travelershub.service.mapper.RequestDtoMapper;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,7 +76,7 @@ public class HotelController {
     public HotelResponseDto addReview(@PathVariable Long id,
                                       @RequestBody ReviewRequestDto reviewRequestDto) {
         reviewService.save(reviewRequestDtoMapper.mapToModel(reviewRequestDto));
-        return hotelResponseDtoMapper.mapToDto(hotelService.addReview(id,reviewRequestDtoMapper
+        return hotelResponseDtoMapper.mapToDto(hotelService.addReview(id, reviewRequestDtoMapper
                 .mapToModel(reviewRequestDto)));
     }
 
@@ -107,7 +109,7 @@ public class HotelController {
                 BigDecimal.valueOf(300),
                 BigDecimal.valueOf(400),
                 BigDecimal.valueOf(500)};
-        int [] capacities = {1, 2, 3, 4, 5};
+        int[] capacities = {1, 2, 3, 4, 5};
         List<String> pictureUrl = List.of(
                 "https://www.ahstatic.com/photos/1276_ho_00_p_1024x768.jpg",
                 "https://www.murhotels.com/cache/40/b3/40b3566310d686be665d9775f59ca9cd.jpg",
@@ -123,14 +125,13 @@ public class HotelController {
                 new Amenity(Amenity.AmenityName.RESTAURANT)
         };
         amenityService.saveAll(List.of(amenities));
-        String[] addresses = {"123 Main St", "456 1st Ave", "789 Oak Ln", "321 Pine St", "654 Elm Ave", "987 Maple Blvd", "741 Cherry Ave", "852 Cedar St", "963 Oak St", "369 Walnut Blvd"};
-        String[] cities = {"New York", "Los Angeles", "Chicago", "Houston", "Philadelphia", "Phoenix", "San Antonio", "San Diego", "Dallas", "San Jose"};
-        String[] telephones = {"(123)456-7890", "(234)567-8901", "(345)678-9012", "(456)789-0123", "(567)890-1234", "(678)901-2345", "(789)012-3456", "(890)123-4567", "(901)234-5678", "(012)345-6789"};
-        String[] names = {"The Plaza Hotel", "The Ritz-Carlton", "The Four Seasons", "The Waldorf Astoria", "The St. Regis", "The Mandarin Oriental", "The Peninsula", "The W Hotel", "The Langham", "The Raffles Hotel"};
-        String[] descriptions = {"Luxury hotel in the heart of the city", "5-star accommodations with spectacular views", "World-renowned hotel with top-notch amenities", "Iconic landmark offering unparalleled service", "Exquisite hotel with a rich history", "Exclusive retreat for the discerning traveler", "Opulent accommodations in a prime location", "Cutting-edge hotel with a modern vibe", "Elegant property with a classic feel", "Unmatched hospitality in a stunning setting"};
+        String[] addresses = {"Bankova Street,6-8", "456 1st Ave", "789 Oak Ln", "321 Pine St", "654 Elm Ave", "987 Maple Blvd", "741 Cherry Ave", "852 Cedar St", "963 Oak St", "369 Walnut Blvd"};
+        String[] cities = {"Kyiv", "Los Angeles", "Chicago", "Houston", "Philadelphia", "Phoenix", "San Antonio", "San Diego", "Dallas", "San Jose"};
+        String[] telephones = {"0442554246", "(234)567-8901", "(345)678-9012", "(456)789-0123", "(567)890-1234", "(678)901-2345", "(789)012-3456", "(890)123-4567", "(901)234-5678", "(012)345-6789"};
+        String[] names = {"Verkhovna Rada", "The Ritz-Carlton", "The Four Seasons", "The Waldorf Astoria", "The St. Regis", "The Mandarin Oriental", "The Peninsula", "The W Hotel", "The Langham", "The Raffles Hotel"};
+        String[] descriptions = {"a place where you can vote", "5-star accommodations with spectacular views", "World-renowned hotel with top-notch amenities", "Iconic landmark offering unparalleled service", "Exquisite hotel with a rich history", "Exclusive retreat for the discerning traveler", "Opulent accommodations in a prime location", "Cutting-edge hotel with a modern vibe", "Elegant property with a classic feel", "Unmatched hospitality in a stunning setting"};
         BigDecimal[] ratings = {BigDecimal.valueOf(4.9), BigDecimal.valueOf(4.8), BigDecimal.valueOf(4.7), BigDecimal.valueOf(4.6), BigDecimal.valueOf(4.5), BigDecimal.valueOf(4.4), BigDecimal.valueOf(4.3), BigDecimal.valueOf(4.2), BigDecimal.valueOf(4.1), BigDecimal.valueOf(4.0)};
         Integer[] stars = {5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
-
         for (int i = 0; i < count; i++) {
             Hotel hotel = new Hotel();
             hotel.setName(names[new Random().nextInt(names.length)]);
