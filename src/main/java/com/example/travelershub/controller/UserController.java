@@ -4,7 +4,11 @@ import com.example.travelershub.dto.response.UserResponseDto;
 import com.example.travelershub.model.User;
 import com.example.travelershub.service.UserService;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")

@@ -6,8 +6,11 @@ import com.example.travelershub.service.ReviewService;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/reviews")
