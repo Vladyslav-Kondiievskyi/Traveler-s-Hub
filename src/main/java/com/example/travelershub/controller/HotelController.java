@@ -12,7 +12,6 @@ import com.example.travelershub.service.ReviewService;
 import com.example.travelershub.service.RoomService;
 import com.example.travelershub.service.mapper.RequestDtoMapper;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +20,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
