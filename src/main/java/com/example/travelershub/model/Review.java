@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +14,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "reviews")
+@Table(name = "review")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +23,7 @@ public class Review {
     private String text;
     private String authorName;
     private LocalDateTime date;
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 }

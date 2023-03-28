@@ -1,5 +1,6 @@
 package com.example.travelershub.model;
 
+import com.example.travelershub.model.enumfolder.ApartmentKind;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,27 +16,18 @@ import lombok.Setter;
 @Setter
 @Entity
 @EqualsAndHashCode
-@Table(name = "amenities")
-public class Amenity {
+@Table(name = "apartment_type")
+public class ApartmentType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(value = EnumType.STRING)
-    private AmenityName name;
+    private ApartmentKind apartmentKind;
 
-    public Amenity() {
+    public ApartmentType() {
     }
 
-    public Amenity(AmenityName name) {
-        this.name = name;
-    }
-
-    public enum AmenityName {
-        WIFI,
-        PARKING,
-        POOL,
-        GYM,
-        SPA,
-        RESTAURANT;
+    public ApartmentType(ApartmentKind apartmentKind) {
+        this.apartmentKind = apartmentKind;
     }
 }

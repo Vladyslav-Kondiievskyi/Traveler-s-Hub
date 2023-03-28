@@ -1,5 +1,6 @@
 package com.example.travelershub.model;
 
+import com.example.travelershub.model.enumfolder.RoleName;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,16 +14,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(value = EnumType.STRING)
     private RoleName roleName;
-
-    public enum RoleName {
-        ADMIN,
-        USER;
-    }
 }
