@@ -106,26 +106,48 @@ public class HotelController {
         int[] capacities = {1, 2, 3, 4, 5};
         List<String> pictureUrl = List.of(
                 "https://www.ahstatic.com/photos/1276_ho_00_p_1024x768.jpg",
-                "https://www.murhotels.com/cache/40/b3/40b3566310d686be665d9775f59ca9cd.jpg",
-                "https://www.h-hotels.com/_Resources/Persistent/0/1/a/4/01a400d0047f4b7599631797fc27ceabf9e68db3/aussenansicht-nacht-03-h4-hotel-berlin-alexanderplatz-2400x1113.jpg",
-                "https://media.radissonhotels.net/image/metropolitan-hotel-sofia-a-member-of-radisson-individuals/exteriorview/16256-145921-f72742573_3xl.jpg?impolicy=Card&gravity=North",
-                "https://www.althoffcollection.com/fileadmin/_processed_/8/3/csm_althoff-collection-hotel-am-schlossgarten-aussenansicht-rendering-umbau-tag-web_67cee1fd7f.jpg");
-        Amenity[] amenities = {
-                new Amenity(Amenity.AmenityName.WIFI),
-                new Amenity(Amenity.AmenityName.PARKING),
-                new Amenity(Amenity.AmenityName.POOL),
-                new Amenity(Amenity.AmenityName.GYM),
-                new Amenity(Amenity.AmenityName.SPA),
-                new Amenity(Amenity.AmenityName.RESTAURANT)
-        };
-        amenityService.saveAll(List.of(amenities));
-        String[] addresses = {"Bankova Street,6-8", "456 1st Ave", "789 Oak Ln", "321 Pine St", "654 Elm Ave", "987 Maple Blvd", "741 Cherry Ave", "852 Cedar St", "963 Oak St", "369 Walnut Blvd"};
-        String[] cities = {"Kyiv", "Los Angeles", "Chicago", "Houston", "Philadelphia", "Phoenix", "San Antonio", "San Diego", "Dallas", "San Jose"};
-        String[] telephones = {"0442554246", "(234)567-8901", "(345)678-9012", "(456)789-0123", "(567)890-1234", "(678)901-2345", "(789)012-3456", "(890)123-4567", "(901)234-5678", "(012)345-6789"};
-        String[] names = {"Verkhovna Rada", "The Ritz-Carlton", "The Four Seasons", "The Waldorf Astoria", "The St. Regis", "The Mandarin Oriental", "The Peninsula", "The W Hotel", "The Langham", "The Raffles Hotel"};
-        String[] descriptions = {"a place where you can vote", "5-star accommodations with spectacular views", "World-renowned hotel with top-notch amenities", "Iconic landmark offering unparalleled service", "Exquisite hotel with a rich history", "Exclusive retreat for the discerning traveler", "Opulent accommodations in a prime location", "Cutting-edge hotel with a modern vibe", "Elegant property with a classic feel", "Unmatched hospitality in a stunning setting"};
-        BigDecimal[] ratings = {BigDecimal.valueOf(4.9), BigDecimal.valueOf(4.8), BigDecimal.valueOf(4.7), BigDecimal.valueOf(4.6), BigDecimal.valueOf(4.5), BigDecimal.valueOf(4.4), BigDecimal.valueOf(4.3), BigDecimal.valueOf(4.2), BigDecimal.valueOf(4.1), BigDecimal.valueOf(4.0)};
-        Integer[] stars = {5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
+                "https://www.murhotels.com/cach"
+                        + "e/40/b3/40b3566310d686be665d9775f59ca9cd.jpg",
+                "https://www.h-hotels.com/_Resources/Persistent/0/1/a/4/01"
+                        + "a400d0047f4b7599631797fc27ceabf9e68db3/aussenansicht"
+                        + "-nacht-03-h4-hotel-berlin-alexanderplatz-2400x1113.jpg",
+                "https://media.radissonhotels.net/image/metropolitan-hotel-s"
+                        + "ofia-a-member-of-radisson-individuals/exteriorview/162"
+                        + "56-145921-f72742573_3xl.jpg?impolicy=Card&gravity=North",
+                "https://www.althoffcollection.com/fileadmin/_processed_/8/3/cs"
+                        + "m_althoff-collection-hotel-am-schlossgarten-aussenansic"
+                        + "ht-rendering-umbau-tag-web_67cee1fd7f.jpg");
+        String[] amenities = {"WIFI", "PARKING", "POOL", "GYM", "SPA", "RESTAURANT"};
+        String[] addresses = {"123 Main St",
+                "456 1st Ave", "789 Oak Ln", "321 Pine St", "654 Elm Ave",
+                "987 Maple Blvd", "741 Cherry Ave", "852 Cedar St",
+                "963 Oak St", "369 Walnut Blvd"};
+        String[] cities = {"New York", "Los Angeles", "Chicago", "Houston", "Philadelphia",
+                "Phoenix", "San Antonio", "San Diego", "Dallas", "San Jose"};
+        String[] telephones = {"(123)456-7890", "(234)567-8901", "(345)678-9012",
+                "(456)789-0123", "(567)890-1234", "(678)901-2345", "(789)012-3456",
+                "(890)123-4567", "(901)234-5678", "(012)345-6789"};
+        String[] names = {"The Plaza Hotel", "The Ritz-Carlton", "The Four Seasons",
+                "The Waldorf Astoria", "The St. Regis", "The Mandarin Oriental",
+                "The Peninsula", "The W Hotel", "The Langham", "The Raffles Hotel"};
+        String[] descriptions = {"Luxury hotel in the heart of the city",
+                "5-star accommodations with spectacular views",
+                "World-renowned hotel with top-notch amenities",
+                "Iconic landmark offering unparalleled service",
+                "Exquisite hotel with a rich history",
+                "Exclusive retreat for the discerning traveler",
+                "Opulent accommodations in a prime location",
+                "Cutting-edge hotel with a modern vibe",
+                "Elegant property with a classic feel",
+                "Unmatched hospitality in a stunning setting"};
+        Float[] ratings = {4.9f, 4.8f, 4.7f, 4.6f, 4.5f, 4.4f, 4.3f, 4.2f, 4.1f, 4.0f};
+        Byte[] stars = {5, 3, 4, 5, 3, 2, 4, 3, 5, 5};
+        ApartmentType[] apartmentTypes = {new ApartmentType(ApartmentKind.APARTMENT),
+                new ApartmentType(ApartmentKind.BED),
+                new ApartmentType(ApartmentKind.ROOM), new ApartmentType(ApartmentKind.HOUSE),
+                new ApartmentType(ApartmentKind.VILLA)};
+        apartmentTypeService.saveAll(List.of(apartmentTypes));
+        Random random = new Random();
         for (int i = 0; i < count; i++) {
             Hotel hotel = new Hotel();
             hotel.setName(names[new Random().nextInt(names.length)]);
