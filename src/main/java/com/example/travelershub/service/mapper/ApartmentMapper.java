@@ -1,20 +1,22 @@
 package com.example.travelershub.service.mapper;
 
-import com.example.travelershub.dto.response.RoomResponseDto;
+import com.example.travelershub.dto.response.ApartmentResponseDto;
 import com.example.travelershub.model.Apartment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ApartmentMapper implements ResponseDtoMapper<RoomResponseDto, Apartment> {
+public class ApartmentMapper implements ResponseDtoMapper<ApartmentResponseDto, Apartment> {
 
     @Override
-    public RoomResponseDto mapToDto(Apartment room) {
-        RoomResponseDto dto = new RoomResponseDto();
-        dto.setId(room.getId());
-        dto.setNumber(room.getNumber());
-        dto.setPrice(room.getPrice());
-        dto.setCapacity(room.getCapacity());
-        dto.setPicturesUrl(room.getPicturesUrl());
+    public ApartmentResponseDto mapToDto(Apartment apartment) {
+        ApartmentResponseDto dto = new ApartmentResponseDto();
+        dto.setId(apartment.getId());
+        dto.setNumber(apartment.getNumber());
+        dto.setPrice(apartment.getPrice());
+        dto.setCapacity(apartment.getCapacity());
+        dto.setPicturesUrl(apartment.getPicturesUrl());
+        dto.setAmenities(apartment.getAmenities());
+        dto.setHotelName(apartment.getHotel().getName());
         return dto;
     }
 }

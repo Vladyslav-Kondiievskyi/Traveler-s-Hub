@@ -18,4 +18,9 @@ public class ApartmentTypeServiceImpl implements ApartmentTypeService {
     public List<ApartmentType> saveAll(Iterable<ApartmentType> entities) {
         return apartmentTypeRepository.saveAll(entities);
     }
+
+    @Override
+    public ApartmentType findByName(String name) {
+        return apartmentTypeRepository.findByName(name);
+    }
 }

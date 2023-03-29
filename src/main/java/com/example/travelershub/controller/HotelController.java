@@ -1,18 +1,13 @@
 package com.example.travelershub.controller;
 
-import com.example.travelershub.dto.request.ReviewRequestDto;
 import com.example.travelershub.dto.response.HotelResponseDto;
-import com.example.travelershub.dto.response.ReviewResponseDto;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
 import com.example.travelershub.model.Hotel;
-import com.example.travelershub.model.Review;
 import com.example.travelershub.model.enumfolder.ApartmentKind;
 import com.example.travelershub.service.ApartmentService;
 import com.example.travelershub.service.ApartmentTypeService;
 import com.example.travelershub.service.HotelService;
-import com.example.travelershub.service.ReviewService;
-import com.example.travelershub.service.mapper.RequestDtoMapper;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,9 +19,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,23 +29,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class HotelController {
     private final HotelService hotelService;
     private final ApartmentService roomService;
-    private final ReviewService reviewService;
     private final ApartmentTypeService apartmentTypeService;
     private final ResponseDtoMapper<HotelResponseDto, Hotel> hotelResponseDtoMapper;
 
-    private final RequestDtoMapper<ReviewRequestDto, Review> reviewRequestDtoMapper;
-    private final ResponseDtoMapper<ReviewResponseDto, Review> responseDtoMapper;
-
-    public HotelController(HotelService hotelService, ApartmentService roomService,
-                           ReviewService reviewService, ApartmentTypeService apartmentTypeService, ResponseDtoMapper<HotelResponseDto, Hotel> hotelResponseDtoMapper,
-                           RequestDtoMapper<ReviewRequestDto, Review> reviewRequestDtoMapper, ResponseDtoMapper<ReviewResponseDto, Review> responseDtoMapper) {
+    public HotelController(HotelService hotelService,
+                           ApartmentService roomService,
+                           ApartmentTypeService apartmentTypeService,
+                           ResponseDtoMapper<HotelResponseDto, Hotel> hotelResponseDtoMapper) {
         this.hotelService = hotelService;
         this.roomService = roomService;
-        this.reviewService = reviewService;
         this.apartmentTypeService = apartmentTypeService;
         this.hotelResponseDtoMapper = hotelResponseDtoMapper;
-        this.reviewRequestDtoMapper = reviewRequestDtoMapper;
-        this.responseDtoMapper = responseDtoMapper;
     }
 
     @GetMapping("/all")
@@ -63,9 +49,9 @@ public class HotelController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/min_rating{rating}")
-    public List<HotelResponseDto> findAllByRatingIsGreaterThan(@PathVariable Float rating) {
-        return hotelService.findAllByRatingIsGreaterThan(rating)
+    @GetMapping
+    public List<HotelResponseDto> findAllByRatingIsGreaterThan(@RequestParam Float minRating) {
+        return hotelService.findAllByRatingIsGreaterThan(minRating)
                 .stream()
                 .map(hotelResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
@@ -80,11 +66,33 @@ public class HotelController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/{hotelId}/reviews")
-    public ReviewResponseDto addReviewToHotel(@PathVariable Long hotelId,
-                                                   @RequestBody Review review) {
-        hotelService.addReviewToHotel(hotelId, review);
-        return responseDtoMapper.mapToDto(review);
+    @GetMapping("/stars")
+    public List<HotelResponseDto> findAllByStarEqual(@RequestParam Byte star) {
+        return hotelService.findAllByStarsIs(star)
+                .stream()
+                .map(hotelResponseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/name")
+    public HotelResponseDto findByName(@RequestParam String hotelName) {
+        return hotelResponseDtoMapper.mapToDto(hotelService.findByName(hotelName));
+    }
+
+    @GetMapping("/city")
+    public List<HotelResponseDto> findAllByCity(@RequestParam String city) {
+        return hotelService.findAllByCity(city)
+                .stream()
+                .map(hotelResponseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("orders_desc")
+    public List<HotelResponseDto> findAllOrderByReviewsCountDesc() {
+        return hotelService.findAllOrderByReviewsCountDesc()
+                .stream()
+                .map(hotelResponseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/inject")

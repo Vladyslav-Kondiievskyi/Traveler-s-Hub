@@ -13,4 +13,6 @@ public interface ReviewService {
     void deleteById(Long id);
 
     List<Review> getAllByHotel(Long hotelId);
+
+    void addReviewToHotel(Long hotelId, Review review);
 }

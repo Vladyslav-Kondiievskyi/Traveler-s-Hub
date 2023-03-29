@@ -8,11 +8,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RoomResponseDto {
+public class ApartmentResponseDto {
     private Long id;
     private int number;
     private BigDecimal price;
     private int capacity;
     private List<String> picturesUrl;
     private Set<String> amenities;
+    private String hotelName;
 }

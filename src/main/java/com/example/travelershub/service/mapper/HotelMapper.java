@@ -1,10 +1,7 @@
 package com.example.travelershub.service.mapper;
 
 import com.example.travelershub.dto.response.HotelResponseDto;
-import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
-import com.example.travelershub.model.Review;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,12 +12,6 @@ public class HotelMapper implements ResponseDtoMapper<HotelResponseDto, Hotel> {
         HotelResponseDto dto = new HotelResponseDto();
         dto.setId(hotel.getId());
         dto.setName(hotel.getName());
-        dto.setRoomsId(hotel.getRooms().stream()
-                .map(Apartment::getId)
-                .collect(Collectors.toList()));
-        dto.setReviewsId(hotel.getReviews().stream()
-                .map(Review::getId)
-                .collect(Collectors.toList()));
         dto.setPicturesUrl(hotel.getPicturesUrl());
         dto.setAddress(hotel.getAddress());
         dto.setCity(hotel.getCity());
