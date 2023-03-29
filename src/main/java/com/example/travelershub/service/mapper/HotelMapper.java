@@ -1,10 +1,7 @@
 package com.example.travelershub.service.mapper;
 
 import com.example.travelershub.dto.response.HotelResponseDto;
-import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
-import com.example.travelershub.model.Review;
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component

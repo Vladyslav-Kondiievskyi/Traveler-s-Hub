@@ -2,7 +2,6 @@ package com.example.travelershub.service;
 
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +9,7 @@ import java.util.Set;
 public interface ApartmentService {
 
     Apartment save(Apartment room);
+
     List<Apartment> getAll();
 
     Apartment getById(Long id);

@@ -42,7 +42,6 @@ public class HotelController {
         this.hotelResponseDtoMapper = hotelResponseDtoMapper;
     }
 
-
     @GetMapping("/all")
     public List<HotelResponseDto> getAll() {
         return hotelService.getAll().stream()

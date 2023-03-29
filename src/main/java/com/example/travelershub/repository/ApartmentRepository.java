@@ -1,12 +1,10 @@
 package com.example.travelershub.repository;
 
 import com.example.travelershub.model.Apartment;
+import com.example.travelershub.model.ApartmentType;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-
-import com.example.travelershub.model.ApartmentType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -30,6 +28,8 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Long>,
     List<Apartment> findAllByOrderByPriceDesc();
 
     List<Apartment> findAllByOrderByPriceAsc();
+
     List<Apartment> findAllByPriceBetweenOrderByPriceAsc(BigDecimal from, BigDecimal to);
+
     List<Apartment> findAllByPriceBetweenOrderByPriceDesc(BigDecimal from, BigDecimal to);
 }

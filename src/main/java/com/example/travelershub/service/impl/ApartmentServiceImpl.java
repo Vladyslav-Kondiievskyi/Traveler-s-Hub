@@ -7,7 +7,6 @@ import com.example.travelershub.service.ApartmentService;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.stereotype.Service;
 
 @Service

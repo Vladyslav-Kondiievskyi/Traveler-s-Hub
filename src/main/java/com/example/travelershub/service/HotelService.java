@@ -1,7 +1,6 @@
 package com.example.travelershub.service;
 
 import com.example.travelershub.model.Hotel;
-import com.example.travelershub.model.Review;
 import java.util.List;
 
 public interface HotelService {

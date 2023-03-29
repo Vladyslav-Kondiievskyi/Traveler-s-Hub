@@ -1,12 +1,9 @@
 package com.example.travelershub.service.impl;
 
-import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
 import com.example.travelershub.repository.ApartmentTypeRepository;
 import com.example.travelershub.service.ApartmentTypeService;
 import java.util.List;
-import java.util.Set;
-
 import org.springframework.stereotype.Service;
 
 @Service
