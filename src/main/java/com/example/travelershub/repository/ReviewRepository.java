@@ -9,6 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    @Query("SELECT r FROM Hotel h JOIN h.reviews r WHERE h.id = :hotelId")
-    List<Review> getAllByHotel(@Param("hotelId") Long hotelId);
+    List<Review> getAllByHotel_Id(Long hotelId);
 }

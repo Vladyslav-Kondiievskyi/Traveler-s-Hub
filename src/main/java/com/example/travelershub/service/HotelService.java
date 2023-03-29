@@ -9,15 +9,17 @@ public interface HotelService {
 
     Hotel getById(Long id);
 
-    Hotel addReview(Long hotelId, Review review);
-
     List<Hotel> getAll();
-
-    void deleteById(Long id);
 
     List<Hotel> getAllByRatingBetween(Float ratingFrom, Float ratingTo);
 
     List<Hotel> findAllByRatingIsGreaterThan(Float rating);
 
-    void addReviewToHotel(Long hotelId, Review review);
+    List<Hotel> findAllByStarsIs(Byte stars);
+
+    Hotel findByName(String hotelName);
+
+    List<Hotel> findAllByCity(String city);
+
+    List<Hotel> findAllOrderByReviewsCountDesc();
 }

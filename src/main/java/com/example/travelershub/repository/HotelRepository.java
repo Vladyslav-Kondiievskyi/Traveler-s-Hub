@@ -17,10 +17,12 @@ public interface HotelRepository extends JpaRepository<Hotel, Long>,
 
     List<Hotel> findAllByRatingIsGreaterThanEqual(Float rating);
 
-    @Modifying
-    @Query("UPDATE Hotel h SET h.reviews = :reviews WHERE h.id = :hotelId")
-    void updateHotelReviews(@Param("hotelId") Long hotelId, @Param("reviews") List<Review> reviews);
+    List<Hotel> findAllByStarsIs(Byte stars);
 
-    @Query("from Review r join fetch Hotel h join fetch h.reviews where h.id = :hotelId")
-    List<Review> getAllReviewsByHotel(@Param("hotelId") Long hotelId);
+    Hotel findByName(String hotelName);
+
+    List<Hotel> findAllByCity(String city);
+
+    @Query("SELECT h FROM Hotel h JOIN h.reviews r GROUP BY h.id ORDER BY COUNT(r) DESC")
+    List<Hotel> findAllOrderByReviewsCountDesc();
 }

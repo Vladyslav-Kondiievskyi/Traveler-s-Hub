@@ -15,12 +15,6 @@ public class HotelMapper implements ResponseDtoMapper<HotelResponseDto, Hotel> {
         HotelResponseDto dto = new HotelResponseDto();
         dto.setId(hotel.getId());
         dto.setName(hotel.getName());
-        dto.setRoomsId(hotel.getRooms().stream()
-                .map(Apartment::getId)
-                .collect(Collectors.toList()));
-        dto.setReviewsId(hotel.getReviews().stream()
-                .map(Review::getId)
-                .collect(Collectors.toList()));
         dto.setPicturesUrl(hotel.getPicturesUrl());
         dto.setAddress(hotel.getAddress());
         dto.setCity(hotel.getCity());

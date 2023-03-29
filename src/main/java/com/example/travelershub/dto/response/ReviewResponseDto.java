@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class ReviewResponseDto {
     private Long id;
-    private Integer rating;
+    private Float rating;
     private String text;
     private String authorName;
     private LocalDateTime date;
