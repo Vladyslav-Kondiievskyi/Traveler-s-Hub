@@ -1,11 +1,8 @@
 package com.example.travelershub.service;
 
-import com.example.travelershub.model.Amenity;
 import com.example.travelershub.model.Hotel;
 import com.example.travelershub.model.Review;
-import java.math.BigDecimal;
 import java.util.List;
-import org.springframework.data.repository.query.Param;
 
 public interface HotelService {
     Hotel save(Hotel hotel);
@@ -18,11 +15,9 @@ public interface HotelService {
 
     void deleteById(Long id);
 
-    List<Hotel> getAllByRatingBetween(BigDecimal ratingFrom, BigDecimal ratingTo);
+    List<Hotel> getAllByRatingBetween(Float ratingFrom, Float ratingTo);
 
-    List<Hotel> findAllByRatingIsGreaterThan(BigDecimal rating);
-
-    List<Hotel> findHotelByAmenities(@Param("amenities") List<Amenity.AmenityName> amenities);
+    List<Hotel> findAllByRatingIsGreaterThan(Float rating);
 
     void addReviewToHotel(Long hotelId, Review review);
 }

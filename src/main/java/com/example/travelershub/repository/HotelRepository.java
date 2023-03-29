@@ -1,9 +1,7 @@
 package com.example.travelershub.repository;
 
-import com.example.travelershub.model.Amenity;
 import com.example.travelershub.model.Hotel;
 import com.example.travelershub.model.Review;
-import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -15,12 +13,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Long>,
         JpaSpecificationExecutor<Hotel> {
-    List<Hotel> getAllByRatingBetween(BigDecimal ratingFrom, BigDecimal ratingTo);
+    List<Hotel> getAllByRatingBetween(Float ratingFrom, Float ratingTo);
 
-    List<Hotel> findAllByRatingIsGreaterThanEqual(BigDecimal rating);
-
-    @Query("SELECT h FROM Hotel h JOIN h.amenities a WHERE a.name IN :amenities")
-    List<Hotel> findHotelByAmenities(@Param("amenities") List<Amenity.AmenityName> amenities);
+    List<Hotel> findAllByRatingIsGreaterThanEqual(Float rating);
 
     @Modifying
     @Query("UPDATE Hotel h SET h.reviews = :reviews WHERE h.id = :hotelId")

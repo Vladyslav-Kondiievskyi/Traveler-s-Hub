@@ -1,12 +1,10 @@
 package com.example.travelershub.service.impl;
 
-import com.example.travelershub.model.Amenity;
 import com.example.travelershub.model.Hotel;
 import com.example.travelershub.model.Review;
 import com.example.travelershub.repository.HotelRepository;
 import com.example.travelershub.repository.ReviewRepository;
 import com.example.travelershub.service.HotelService;
-import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -50,17 +48,13 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> getAllByRatingBetween(BigDecimal ratingFrom, BigDecimal ratingTo) {
+    public List<Hotel> getAllByRatingBetween(Float ratingFrom, Float ratingTo) {
         return hotelRepository.getAllByRatingBetween(ratingFrom, ratingTo);
     }
 
     @Override
-    public List<Hotel> findAllByRatingIsGreaterThan(BigDecimal rating) {
+    public List<Hotel> findAllByRatingIsGreaterThan(Float rating) {
         return hotelRepository.findAllByRatingIsGreaterThanEqual(rating);
-    }
-
-    public List<Hotel> findHotelByAmenities(List<Amenity.AmenityName> amenities) {
-        return hotelRepository.findHotelByAmenities(amenities);
     }
 
     public void addReviewToHotel(Long hotelId, Review review) {
@@ -68,6 +62,7 @@ public class HotelServiceImpl implements HotelService {
                 .orElseThrow(() -> new RuntimeException("Hotel not found with id " + hotelId));
         List<Review> reviews = hotel.getReviews();
         reviews.add(review);
+        review.setHotel(hotel);
         hotel.setReviews(reviews);
         reviewRepository.save(review);
         hotelRepository.save(hotel);

@@ -1,6 +1,7 @@
 package com.example.travelershub.service.impl;
 
 import com.example.travelershub.model.Role;
+import com.example.travelershub.model.enumfolder.RoleName;
 import com.example.travelershub.repository.RoleRepository;
 import com.example.travelershub.service.RoleService;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role getByName(Role.RoleName user) {
-        return repository.findByRoleName(user).get();
+    public Role getByName(RoleName roleName) {
+        return repository.findByRoleName(roleName).get();
     }
 }

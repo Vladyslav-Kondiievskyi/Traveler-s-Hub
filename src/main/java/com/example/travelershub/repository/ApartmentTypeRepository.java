@@ -1,12 +1,11 @@
 package com.example.travelershub.repository;
 
-import com.example.travelershub.model.Amenity;
+import com.example.travelershub.model.ApartmentType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AmenityRepository extends JpaRepository<Amenity, Long>,
-        JpaSpecificationExecutor<Amenity> {
-    public Amenity getByName(Amenity.AmenityName name);
+public interface ApartmentTypeRepository extends JpaRepository<ApartmentType, Long>,
+        JpaSpecificationExecutor<ApartmentType> {
 }

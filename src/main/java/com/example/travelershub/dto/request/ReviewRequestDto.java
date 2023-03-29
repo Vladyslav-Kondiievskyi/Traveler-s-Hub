@@ -11,4 +11,5 @@ public class ReviewRequestDto {
     private String text;
     private String authorName;
     private LocalDateTime date;
+    private Long hotelId;
 }

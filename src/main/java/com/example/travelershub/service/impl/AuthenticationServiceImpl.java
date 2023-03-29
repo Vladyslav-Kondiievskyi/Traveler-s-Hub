@@ -1,7 +1,7 @@
 package com.example.travelershub.service.impl;
 
-import com.example.travelershub.model.Role;
 import com.example.travelershub.model.User;
+import com.example.travelershub.model.enumfolder.RoleName;
 import com.example.travelershub.service.AuthenticationService;
 import com.example.travelershub.service.RoleService;
 import com.example.travelershub.service.UserService;
@@ -27,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setTelephone(telephone);
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setRoles(Set.of(roleService.getByName(Role.RoleName.USER)));
+        user.setRoles(Set.of(roleService.getByName(RoleName.USER)));
         userService.save(user);
         return null;
     }
