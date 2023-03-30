@@ -1,7 +1,6 @@
 package com.example.travelershub.controller;
 
 import com.example.travelershub.dto.response.UserResponseDto;
-import com.example.travelershub.model.Role;
 import com.example.travelershub.model.User;
 import com.example.travelershub.model.enumfolder.RoleName;
 import com.example.travelershub.service.RoleService;
@@ -57,12 +56,6 @@ public class UserController {
         String[] passwords = {"johny3214", "elly3301", "bob4e122", "teddy2005", "jinny2002"};
         String[] emails = {"travel@gmail.com", "john@gmail.com", "bob@gmail.com", "dony@gmail.com", "elly@gmail.com"};
         String[] telephones = {"380-978-920-040", "380-654-934-560", "380-638-220-631", "380-678-988-143", "380-955-321-908"};
-        Role adminRole = new Role();
-        adminRole.setRoleName(RoleName.ADMIN);
-        roleService.save(adminRole);
-        Role userRole = new Role();
-        userRole.setRoleName(RoleName.USER);
-        roleService.save(userRole);
         Random random = new Random();
         for (int i = 0; i < count; i++) {
             User user = new User();

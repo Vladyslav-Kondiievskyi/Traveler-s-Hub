@@ -118,10 +118,10 @@ public class HotelController {
                         + "m_althoff-collection-hotel-am-schlossgarten-aussenansic"
                         + "ht-rendering-umbau-tag-web_67cee1fd7f.jpg");
         String[] amenities = {"WIFI", "PARKING", "POOL", "GYM", "SPA", "RESTAURANT"};
-        String[] addresses = {"123 Main St",
-                "456 1st Ave", "789 Oak Ln", "321 Pine St", "654 Elm Ave",
-                "987 Maple Blvd", "741 Cherry Ave", "852 Cedar St",
-                "963 Oak St", "369 Walnut Blvd"};
+        String[] addresses = {"1919 Madison Ave",
+                "503 Foothill Rd, Beverly Hills", "4248 S Michigan Ave", "2712 Blodgett St", "2600 Benjamin Franklin Pkwy",
+                "4725 E Mayo Blvd", "17000 W I-10", "1500 Orange Ave",
+                "2201 N Field St", "377 Santana Row"};
         String[] cities = {"New York", "Los Angeles", "Chicago", "Houston", "Philadelphia",
                 "Phoenix", "San Antonio", "San Diego", "Dallas", "San Jose"};
         String[] telephones = {"(123)456-7890", "(234)567-8901", "(345)678-9012",
