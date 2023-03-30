@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return Optional.of(userRepository.findAllByEmail(email));
+        return Optional.of(userRepository.findUserByEmail(email));
+    }
+
+    @Override
+    public User delete(Long id) {
+        return userRepository.deleteUserById(id);
     }
 }

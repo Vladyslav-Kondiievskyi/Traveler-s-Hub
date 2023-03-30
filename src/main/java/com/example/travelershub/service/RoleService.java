@@ -5,4 +5,6 @@ import com.example.travelershub.model.enumfolder.RoleName;
 
 public interface RoleService {
     Role getByName(RoleName roleName);
+
+    Role save(Role role);
 }

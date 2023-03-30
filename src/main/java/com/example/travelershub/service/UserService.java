@@ -9,4 +9,6 @@ public interface UserService {
     User get(Long id);
 
     Optional<User> findByEmail(String email);
+
+    User delete(Long id);
 }
