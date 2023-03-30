@@ -5,6 +5,7 @@ import com.example.travelershub.model.Review;
 import com.example.travelershub.repository.HotelRepository;
 import com.example.travelershub.repository.ReviewRepository;
 import com.example.travelershub.service.ReviewService;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review save(Review review) {
+        review.setDate(LocalDateTime.now());
         return reviewRepository.save(review);
     }
 
@@ -30,7 +32,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review update(Review review) {
-        return null;
+        return reviewRepository.setInfoById(review.getId(), review.getText(),review.getRating());
     }
 
     @Override

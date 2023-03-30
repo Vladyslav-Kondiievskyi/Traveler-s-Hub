@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-//todo this dto for front side and is it necessary to search by id?
 public class UserResponseDto {
     private Long id;
     private String firstName;

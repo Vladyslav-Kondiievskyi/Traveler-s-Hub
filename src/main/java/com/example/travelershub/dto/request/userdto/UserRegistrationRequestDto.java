@@ -1,12 +1,11 @@
-package com.example.travelershub.dto.request;
+package com.example.travelershub.dto.request.userdto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-// todo in future need requestDto for authorization only with email and password
 @Getter
 @Setter
-public class UserRequestDto {
+public class UserRegistrationRequestDto {
     private String firstName;
     private String lastName;
     private String email;
