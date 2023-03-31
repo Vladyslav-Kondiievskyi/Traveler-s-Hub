@@ -23,4 +23,17 @@ public class User {
     private String password;
     @ManyToMany
     private Set<Role> roles;
+
+    public User(String firstName, String lastName, String email, String telephone, String password, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.telephone = telephone;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public User() {
+
+    }
 }

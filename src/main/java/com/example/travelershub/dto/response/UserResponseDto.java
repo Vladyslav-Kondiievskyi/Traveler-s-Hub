@@ -1,5 +1,6 @@
 package com.example.travelershub.dto.response;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +12,5 @@ public class UserResponseDto {
     private String lastName;
     private String telephone;
     private String email;
+    private List<Long> roleIds;
 }
