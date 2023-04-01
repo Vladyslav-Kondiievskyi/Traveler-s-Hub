@@ -11,4 +11,6 @@ public interface UserService {
     Optional<User> findByEmail(String email);
 
     User delete(Long id);
+
+    User findByName(String name);
 }

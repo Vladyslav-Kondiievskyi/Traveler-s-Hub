@@ -5,6 +5,7 @@ import com.example.travelershub.model.ApartmentType;
 import com.example.travelershub.repository.ApartmentRepository;
 import com.example.travelershub.service.ApartmentService;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Service;
@@ -75,5 +76,10 @@ public class ApartmentServiceImpl implements ApartmentService {
     @Override
     public List<Apartment> findAllByPriceBetweenOrderByPriceDesc(BigDecimal from, BigDecimal to) {
         return apartmentRepository.findAllByPriceBetweenOrderByPriceDesc(from, to);
+    }
+
+    @Override
+    public List<Apartment> findAvailableApartments(LocalDate dateFrom, LocalDate dateTo) {
+        return apartmentRepository.findAvailableApartments(dateFrom, dateTo);
     }
 }

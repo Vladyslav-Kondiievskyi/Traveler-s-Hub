@@ -7,9 +7,11 @@ import com.example.travelershub.service.ApartmentService;
 import com.example.travelershub.service.ApartmentTypeService;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -111,6 +113,16 @@ public List<ApartmentResponseDto> findAllByCapacityBetween(@RequestParam Integer
             @RequestParam BigDecimal from,
             @RequestParam BigDecimal to) {
         return apartmentService.findAllByPriceBetweenOrderByPriceAsc(from, to)
+                .stream()
+                .map(apartmentResponseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/available")
+    public List<ApartmentResponseDto> findAvailableApartments(
+            @RequestParam("dateFrom") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
+            @RequestParam("dateTo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTo) {
+        return apartmentService.findAvailableApartments(dateFrom, dateTo)
                 .stream()
                 .map(apartmentResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());

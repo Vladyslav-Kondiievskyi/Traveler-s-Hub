@@ -3,6 +3,7 @@ package com.example.travelershub.service;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -31,4 +32,6 @@ public interface ApartmentService {
     List<Apartment> findAllByPriceBetweenOrderByPriceAsc(BigDecimal from, BigDecimal to);
 
     List<Apartment> findAllByPriceBetweenOrderByPriceDesc(BigDecimal from, BigDecimal to);
+
+    List<Apartment> findAvailableApartments(LocalDate dateFrom, LocalDate dateTo);
 }
