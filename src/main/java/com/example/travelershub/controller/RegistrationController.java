@@ -1,11 +1,11 @@
 package com.example.travelershub.controller;
 
+import com.example.travelershub.config.PasswordEncoderProvider;
 import com.example.travelershub.model.Role;
 import com.example.travelershub.model.User;
 import com.example.travelershub.model.enumfolder.RoleName;
 import com.example.travelershub.service.UserService;
 import java.util.Collections;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +15,9 @@ public class RegistrationController {
 
     private final UserService userService;
 
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoderProvider passwordEncoder;
 
-    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
+    public RegistrationController(UserService userService, PasswordEncoderProvider passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -32,7 +32,7 @@ public class RegistrationController {
         User user = new User();
         user.setFirstName(name);
         user.setLastName(username);
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(passwordEncoder.getPasswordEncoder().encode(password));
         user.setRoles(Collections.singleton(new Role(RoleName.USER)));
 
         userService.save(user);
