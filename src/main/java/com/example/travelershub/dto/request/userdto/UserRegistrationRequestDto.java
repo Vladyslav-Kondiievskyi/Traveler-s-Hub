@@ -16,6 +16,5 @@ public class UserRegistrationRequestDto {
     private String email;
     @Size(min = 6, max = 13)
     private String telephone;
-    @Size(min = 8, max = 40)
     private String password;
 }
