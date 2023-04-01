@@ -6,11 +6,14 @@ import com.example.travelershub.model.User;
 import com.example.travelershub.service.AuthenticationService;
 import com.example.travelershub.service.mapper.RequestDtoMapper;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
+import javax.validation.Valid;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final ResponseDtoMapper<UserResponseDto, User> userResponseDtoMapper;
@@ -23,7 +26,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-        public UserResponseDto register(@RequestBody UserRegistrationRequestDto requestDto) {
+        public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto requestDto) {
         User user = authenticationService.register(userRegistrationRequestDtoUserRequestDtoMapper.mapToModel(requestDto));
         return userResponseDtoMapper.mapToDto(user);
     }
