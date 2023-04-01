@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/apartments")
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = {"http://localhost:3000/booking"})
 public class ApartmentController {
     private final ApartmentService apartmentService;
     private final ResponseDtoMapper<ApartmentResponseDto, Apartment> apartmentResponseDtoMapper;

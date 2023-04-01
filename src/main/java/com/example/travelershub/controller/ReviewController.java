@@ -8,6 +8,7 @@ import com.example.travelershub.service.mapper.RequestDtoMapper;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +42,7 @@ public class ReviewController {
 
     @PostMapping("/add/{hotelId}")
     public ReviewResponseDto addReviewToHotel(@PathVariable Long hotelId,
-                                              @RequestBody ReviewRequestDto requestDto) {
+                                              @RequestBody @Valid ReviewRequestDto requestDto) {
         requestDto.setHotelId(hotelId);
         Review review = requestDtoMapper.mapToModel(requestDto);
         reviewService.addReviewToHotel(hotelId, review);
