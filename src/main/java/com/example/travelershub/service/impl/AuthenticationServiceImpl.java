@@ -6,19 +6,16 @@ import com.example.travelershub.service.AuthenticationService;
 import com.example.travelershub.service.RoleService;
 import com.example.travelershub.service.UserService;
 import java.util.Set;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final RoleService roleService;
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
-    public AuthenticationServiceImpl(RoleService roleService, UserService userService, PasswordEncoder passwordEncoder) {
+    public AuthenticationServiceImpl(RoleService roleService, UserService userService) {
         this.roleService = roleService;
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -31,7 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setTelephone(userDto.getTelephone());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setPassword(userDto.getPassword());
         user.setRoles(Set.of(roleService.getByName(RoleName.USER)));
         userService.save(user);
         return user;

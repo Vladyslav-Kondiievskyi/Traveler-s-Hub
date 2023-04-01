@@ -30,13 +30,4 @@ public class Order {
     private BigDecimal amount;
     private LocalDate dateFrom;
     private LocalDate dateTo;
-
-    public Order(Long id, List<Apartment> apartments, User client, LocalDate dateFrom, LocalDate dateTo) {
-        this.id = id;
-        this.apartments = apartments;
-        this.client = client;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
-        this.amount = apartments.stream().map(Apartment::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 }

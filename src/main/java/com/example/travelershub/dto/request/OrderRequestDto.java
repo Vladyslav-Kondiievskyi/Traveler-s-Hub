@@ -1,6 +1,5 @@
-package com.example.travelershub.dto.response;
+package com.example.travelershub.dto.request;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.Getter;
@@ -8,11 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrderResponseDto {
-    private Long id;
+public class OrderRequestDto {
     private List<Long> apartmentsIds;
-    private Long clientId;
-    private BigDecimal amount;
     private LocalDate dateFrom;
     private LocalDate dateTo;
 }
