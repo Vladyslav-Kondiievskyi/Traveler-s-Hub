@@ -13,5 +13,9 @@ public interface OrderService {
 
     List<Order> findAllByClient(User client);
 
+    List<Order> findAllByClientIdAndConfirmIsFalse(Long clientId);
+
+    Order confirmOrder(Order order);
+
     void deleteById(Long id);
 }

@@ -15,4 +15,5 @@ public class OrderResponseDto {
     private BigDecimal amount;
     private LocalDate dateFrom;
     private LocalDate dateTo;
+    private boolean isConfirm;
 }
