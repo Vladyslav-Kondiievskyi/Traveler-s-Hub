@@ -36,6 +36,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> findAllByClientIdAndConfirmIsFalse(Long clientId) {
+        return orderRepository.findAllByClientIdAndConfirmIsFalse(clientId);
+    }
+
+    @Override
+    public Order confirmOrder(Order order) {
+        Order orderFromDb = orderRepository.findById(order.getId()).get();
+        orderFromDb.setConfirm(true);
+        orderRepository.save(orderFromDb);
+        return orderFromDb;
+    }
+
+    @Override
     public void deleteById(Long id) {
         orderRepository.deleteById(id);
     }

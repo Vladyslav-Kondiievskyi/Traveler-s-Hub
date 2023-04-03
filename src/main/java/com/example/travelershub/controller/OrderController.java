@@ -9,10 +9,16 @@ import com.example.travelershub.service.UserService;
 import com.example.travelershub.service.mapper.RequestDtoMapper;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/orders")
@@ -37,5 +43,20 @@ public class OrderController {
         order.setClient(user);
         orderService.save(order);
         return responseDtoMapper.mapToDto(order);
+    }
+
+    @GetMapping("/my_unconfirmed_orders")
+    List<OrderResponseDto> getUnconfirmedOrders(Authentication auth) {
+        String email = auth.getName();
+        User user = userService.findByEmail(email).get();
+        List<Order> allByClientIdAndConfirmIsFalse = orderService.findAllByClientIdAndConfirmIsFalse(user.getId());
+        return allByClientIdAndConfirmIsFalse.stream()
+                .map(responseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping("/complete/{orderId}")
+    OrderResponseDto confirmOrder(@PathVariable Long orderId) {
+        return responseDtoMapper.mapToDto(orderService.confirmOrder(orderService.getById(orderId)));
     }
 }

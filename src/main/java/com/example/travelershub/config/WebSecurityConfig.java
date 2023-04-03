@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final UserDetailsService userDetailsService;
     private final PasswordEncoderProvider passwordEncoder;
 
@@ -30,21 +29,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                    .antMatchers("/*").permitAll()
-                     //.antMatchers(HttpMethod.POST, "/register").permitAll()
-                     .antMatchers(HttpMethod.POST, "/order/complete").authenticated()
-                    // .anyRequest().authenticated()
-                    .anyRequest().authenticated()
+//                .anyRequest().authenticated()
+//                .and()
+//                .oauth2Login();
+//        http.authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/orders/my_unconfirmed_orders").authenticated()
+                .antMatchers(HttpMethod.POST, "/orders/complete").authenticated()
+                .antMatchers("/**").permitAll()
+                //.antMatchers(HttpMethod.POST, "/register").permitAll()
+//                    // .anyRequest().authenticated()
                     .and()
                     .formLogin()
-                    //                    .failureHandler(new SimpleUrlAuthenticationFailureHandler())
+//                    //                    .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                     .permitAll()
                     .and()
                     .httpBasic()
                     .and()
-                    //                .oauth2Login()
-                    //                .and()
+//                                    .oauth2Login()
+//                                    .and()
                     .csrf()
                     .disable();
     }
+
 }

@@ -33,6 +33,7 @@ public class OrderMapper implements ResponseDtoMapper<OrderResponseDto, Order>,
         dto.setAmount(order.getAmount());
         dto.setDateFrom(order.getDateFrom());
         dto.setDateTo(order.getDateTo());
+        dto.setConfirm(order.isConfirm());
         return dto;
     }
 
