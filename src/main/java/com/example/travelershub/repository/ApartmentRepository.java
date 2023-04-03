@@ -1,11 +1,13 @@
 package com.example.travelershub.repository;
 
+import com.example.travelershub.dto.request.FilterRequestDto;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApartmentRepository extends JpaRepository<Apartment, Long>,
-        JpaSpecificationExecutor<Apartment> {
+        JpaSpecificationExecutor<Apartment>, BaseRepository<Apartment> {
     List<Apartment> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
     @Query("SELECT a FROM Apartment a JOIN a.amenities amenity "
@@ -43,4 +45,9 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Long>,
     List<Apartment> findAllByPriceBetweenOrderByPriceAsc(BigDecimal from, BigDecimal to);
 
     List<Apartment> findAllByPriceBetweenOrderByPriceDesc(BigDecimal from, BigDecimal to);
+
+    default List<Apartment> findAllByFields(FilterRequestDto filterRequestDto) {
+        Specification<Apartment> spec = hasFields(filterRequestDto);
+        return findAll(spec);
+    }
 }

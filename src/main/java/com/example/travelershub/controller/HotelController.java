@@ -1,5 +1,6 @@
 package com.example.travelershub.controller;
 
+import com.example.travelershub.dto.request.FilterRequestDto;
 import com.example.travelershub.dto.response.HotelResponseDto;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
@@ -19,6 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -82,6 +84,14 @@ public class HotelController {
     @GetMapping("/city")
     public List<HotelResponseDto> findAllByCity(@RequestParam String city) {
         return hotelService.findAllByCity(city)
+                .stream()
+                .map(hotelResponseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/filters")
+    public List<HotelResponseDto> findAllByFilter(@RequestBody FilterRequestDto filters) {
+        return hotelService.findAllByFilter(filters)
                 .stream()
                 .map(hotelResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());

@@ -1,5 +1,6 @@
 package com.example.travelershub.service.impl;
 
+import com.example.travelershub.dto.request.FilterRequestDto;
 import com.example.travelershub.model.Hotel;
 import com.example.travelershub.repository.HotelRepository;
 import com.example.travelershub.repository.ReviewRepository;
@@ -60,5 +61,10 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public List<Hotel> findAllOrderByReviewsCountDesc() {
         return hotelRepository.findAllOrderByReviewsCountDesc();
+    }
+
+    @Override
+    public List<Hotel> findAllByFilter(FilterRequestDto filters) {
+        return hotelRepository.findAllByFields(filters);
     }
 }

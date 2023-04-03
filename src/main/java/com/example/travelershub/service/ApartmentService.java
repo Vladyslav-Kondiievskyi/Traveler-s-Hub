@@ -1,5 +1,6 @@
 package com.example.travelershub.service;
 
+import com.example.travelershub.dto.request.FilterRequestDto;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
 import java.math.BigDecimal;
@@ -34,4 +35,6 @@ public interface ApartmentService {
     List<Apartment> findAllByPriceBetweenOrderByPriceDesc(BigDecimal from, BigDecimal to);
 
     List<Apartment> findAvailableApartments(LocalDate dateFrom, LocalDate dateTo);
+
+    List<Apartment> findAllByFilter(FilterRequestDto filters);
 }
