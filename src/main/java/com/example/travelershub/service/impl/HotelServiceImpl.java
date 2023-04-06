@@ -108,7 +108,6 @@ public class HotelServiceImpl implements HotelService {
     }
 
     private int findMinPriceIndex(BigDecimal priceMin, BigDecimal priceMax, List<Apartment> apartments) {
-        // Проходимо по всіх елементах списку та шукаємо перший елемент, що попадає в заданий діапазон цін
         for (int i = 0; i < apartments.size(); i++) {
             Apartment apartment = apartments.get(i);
             if (apartment.getPrice().compareTo(priceMin) >= 0
@@ -116,7 +115,6 @@ public class HotelServiceImpl implements HotelService {
                 return i;
             }
         }
-        // Якщо елемент, що попадає в діапазон цін, не знайдено, повертаємо -1
         return -1;
     }
 }
