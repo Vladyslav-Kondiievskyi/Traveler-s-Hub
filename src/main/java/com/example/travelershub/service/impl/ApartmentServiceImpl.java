@@ -1,6 +1,5 @@
 package com.example.travelershub.service.impl;
 
-import com.example.travelershub.dto.request.FilterRequestDto;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
 import com.example.travelershub.repository.ApartmentRepository;
@@ -82,10 +81,5 @@ public class ApartmentServiceImpl implements ApartmentService {
     @Override
     public List<Apartment> findAvailableApartments(LocalDate dateFrom, LocalDate dateTo) {
         return apartmentRepository.findAvailableApartments(dateFrom, dateTo);
-    }
-
-    @Override
-    public List<Apartment> findAllByFilter(FilterRequestDto filters) {
-        return apartmentRepository.findAllByFields(filters);
     }
 }

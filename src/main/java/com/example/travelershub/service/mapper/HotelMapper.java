@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HotelMapper implements ResponseDtoMapper<HotelResponseDto, Hotel> {
-
     @Override
     public HotelResponseDto mapToDto(Hotel hotel) {
         HotelResponseDto dto = new HotelResponseDto();
@@ -19,6 +18,8 @@ public class HotelMapper implements ResponseDtoMapper<HotelResponseDto, Hotel> {
         dto.setDescription(hotel.getDescription());
         dto.setRating(hotel.getRating());
         dto.setStars(hotel.getStars());
+        dto.setAllReviews((long) hotel.getReviews().size());
+        dto.setPrice(String.valueOf(hotel.getRooms().get(0).getPrice()));
         return dto;
     }
 }

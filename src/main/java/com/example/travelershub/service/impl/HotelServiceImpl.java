@@ -1,21 +1,21 @@
 package com.example.travelershub.service.impl;
 
-import com.example.travelershub.dto.request.FilterRequestDto;
+import com.example.travelershub.dto.request.filter.FilterRequest;
+import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
 import com.example.travelershub.repository.HotelRepository;
-import com.example.travelershub.repository.ReviewRepository;
 import com.example.travelershub.service.HotelService;
+import java.math.BigDecimal;
 import java.util.List;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 public class HotelServiceImpl implements HotelService {
     private final HotelRepository hotelRepository;
-    private final ReviewRepository reviewRepository;
 
-    public HotelServiceImpl(HotelRepository hotelRepository, ReviewRepository reviewRepository) {
+    public HotelServiceImpl(HotelRepository hotelRepository) {
         this.hotelRepository = hotelRepository;
-        this.reviewRepository = reviewRepository;
     }
 
     @Override
@@ -64,7 +64,48 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> findAllByFilter(FilterRequestDto filters) {
-        return hotelRepository.findAllByFields(filters);
+    public List<Hotel> filterHotels(FilterRequest filters) {
+        Specification<Hotel> spec = buildSpecification(filters);
+        List<Hotel> filteredHotels = hotelRepository.findAll(spec);
+        filterApartmentsByPriceRange(filters.getPriceMin(), filters.getPriceMax(), filteredHotels);
+        return filteredHotels;
+    }
+
+    private Specification<Hotel> buildSpecification(FilterRequest filters) {
+        return Specification.where(hotelRepository.byCity(filters.getCity()))
+                .and(hotelRepository.byName(filters.getName()))
+                .and(hotelRepository.byRating(filters.getRating()))
+                .and(hotelRepository.byStars(filters.getStars()))
+                .and(hotelRepository.byAmenities(filters.getAmenities()))
+                .and(hotelRepository.byApartmentType(filters.getApartmentType()))
+                .and(hotelRepository.byCapacity(filters.getCapacity()))
+                .and(hotelRepository.byPriceRange(filters.getPriceMin(), filters.getPriceMax()))
+                .and(hotelRepository.isAvailable(filters.getDateFrom(), filters.getDateTo()));
+    }
+
+    private void filterApartmentsByPriceRange(BigDecimal priceMin,
+                                              BigDecimal priceMax,
+                                              List<Hotel> hotels) {
+        for (Hotel hotel : hotels) {
+            List<Apartment> apartments = hotel.getRooms();
+            int minPriceIndex = findMinPriceIndex(priceMin, priceMax, apartments);
+            if (minPriceIndex != -1) {
+                Apartment minPriceApartment = apartments.get(minPriceIndex);
+                apartments.set(minPriceIndex, apartments.get(0));
+                apartments.set(0, minPriceApartment);
+                hotel.setRooms(apartments.subList(0, 1));
+            }
+        }
+    }
+
+    private int findMinPriceIndex(BigDecimal priceMin, BigDecimal priceMax, List<Apartment> apartments) {
+        for (int i = 0; i < apartments.size(); i++) {
+            Apartment apartment = apartments.get(i);
+            if (apartment.getPrice().compareTo(priceMin) >= 0
+                    && apartment.getPrice().compareTo(priceMax) <= 0) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -1,6 +1,5 @@
 package com.example.travelershub.controller;
 
-import com.example.travelershub.dto.request.FilterRequestDto;
 import com.example.travelershub.dto.response.ApartmentResponseDto;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,23 +34,23 @@ public class ApartmentController {
     }
 
     @GetMapping
-public List<ApartmentResponseDto> getApartmentsByAmenities(@RequestParam(required = false) Set<String> amenities) {
+    public List<ApartmentResponseDto> getApartmentsByAmenities(@RequestParam(required = false) Set<String> amenities) {
         if (amenities != null && !amenities.isEmpty()) {
             return apartmentService.getAllByAmenities(amenities, amenities.size())
-                .stream()
-                .map(apartmentResponseDtoMapper::mapToDto)
-                .collect(Collectors.toList());
+                    .stream()
+                    .map(apartmentResponseDtoMapper::mapToDto)
+                    .collect(Collectors.toList());
         } else {
             return apartmentService.getAll()
-                .stream()
-                .map(apartmentResponseDtoMapper::mapToDto)
-                .collect(Collectors.toList());
+                    .stream()
+                    .map(apartmentResponseDtoMapper::mapToDto)
+                    .collect(Collectors.toList());
         }
     }
 
     @GetMapping("/price")
     public List<ApartmentResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
-                                                 @RequestParam BigDecimal to) {
+                                                            @RequestParam BigDecimal to) {
         return apartmentService.findAllByPriceBetween(from, to)
                 .stream()
                 .map(apartmentResponseDtoMapper::mapToDto)
@@ -60,8 +58,8 @@ public List<ApartmentResponseDto> getApartmentsByAmenities(@RequestParam(require
     }
 
     @GetMapping("/capacity")
-public List<ApartmentResponseDto> findAllByCapacityBetween(@RequestParam Integer from,
-                                                @RequestParam Integer to) {
+    public List<ApartmentResponseDto> findAllByCapacityBetween(@RequestParam Integer from,
+                                                               @RequestParam Integer to) {
         return apartmentService.findAllByCapacityBetween(from, to)
                 .stream()
                 .map(apartmentResponseDtoMapper::mapToDto)
@@ -72,14 +70,6 @@ public List<ApartmentResponseDto> findAllByCapacityBetween(@RequestParam Integer
     public List<ApartmentResponseDto> findAllByApartmentType(@RequestParam String type) {
         ApartmentType apartmentType = apartmentTypeService.findByName(type);
         return apartmentService.findAllByApartmentType(apartmentType)
-                .stream()
-                .map(apartmentResponseDtoMapper::mapToDto)
-                .collect(Collectors.toList());
-    }
-
-    @GetMapping("/filters")
-    public List<ApartmentResponseDto> findAllByFilter(@RequestBody FilterRequestDto filters) {
-        return apartmentService.findAllByFilter(filters)
                 .stream()
                 .map(apartmentResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
