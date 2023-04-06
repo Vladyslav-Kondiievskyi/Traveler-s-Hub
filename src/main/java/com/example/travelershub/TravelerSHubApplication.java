@@ -9,5 +9,4 @@ public class TravelerSHubApplication {
     public static void main(String[] args) {
         SpringApplication.run(TravelerSHubApplication.class, args);
     }
-
 }

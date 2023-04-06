@@ -57,4 +57,5 @@ public class OrderController {
     OrderResponseDto confirmOrder(@PathVariable Long orderId) {
         return responseDtoMapper.mapToDto(orderService.confirmOrder(orderService.getById(orderId)));
     }
+    //todo calendar for free room
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Long>,
-        JpaSpecificationExecutor<Hotel> {
+        JpaSpecificationExecutor<Hotel>, HotelSpecification {
     List<Hotel> getAllByRatingBetween(Float ratingFrom, Float ratingTo);
 
     List<Hotel> findAllByRatingIsGreaterThanEqual(Float rating);

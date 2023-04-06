@@ -1,5 +1,6 @@
 package com.example.travelershub.controller;
 
+import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.dto.response.HotelResponseDto;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.ApartmentType;
@@ -10,6 +11,7 @@ import com.example.travelershub.service.ApartmentTypeService;
 import com.example.travelershub.service.HotelService;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,6 +85,40 @@ public class HotelController {
     @GetMapping("/city")
     public List<HotelResponseDto> findAllByCity(@RequestParam String city) {
         return hotelService.findAllByCity(city)
+                .stream()
+                .map(hotelResponseDtoMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/filters")
+    public List<HotelResponseDto> findAllByFilter(
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Float rating,
+            @RequestParam(required = false) Byte stars,
+            @RequestParam(required = false, defaultValue = "0") BigDecimal priceMin,
+            @RequestParam(required = false, defaultValue = "1000000") BigDecimal priceMax,
+            @RequestParam(required = false) Integer capacity,
+            @RequestParam(required = false) Set<String> amenities,
+            @RequestParam(required = false) List<String> apartmentType,
+            @RequestParam("dateFrom") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
+            @RequestParam("dateTo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTo,
+            @RequestParam(required = false) String sort) {
+        FilterRequest filterRequest = new FilterRequest();
+        filterRequest.setCity(city);
+        filterRequest.setName(name);
+        filterRequest.setRating(rating);
+        filterRequest.setStars(stars);
+        filterRequest.setDateFrom(dateFrom);
+        filterRequest.setDateTo(dateTo);
+        filterRequest.setSort(sort);
+        filterRequest.setCapacity(capacity);
+        filterRequest.setAmenities(amenities);
+        filterRequest.setApartmentType(apartmentType);
+        filterRequest.setPriceMin(priceMin);
+        filterRequest.setPriceMax(priceMax);
+        filterRequest.setSort(sort);
+        return hotelService.filterHotels(filterRequest)
                 .stream()
                 .map(hotelResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());

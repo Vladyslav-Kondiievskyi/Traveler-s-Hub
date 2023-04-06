@@ -16,4 +16,6 @@ public class HotelResponseDto {
     private String description;
     private Float rating;
     private Byte stars;
+    private String price;
+    private Long allReviews;
 }

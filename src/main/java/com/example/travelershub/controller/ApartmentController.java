@@ -34,23 +34,23 @@ public class ApartmentController {
     }
 
     @GetMapping
-public List<ApartmentResponseDto> getApartmentsByAmenities(@RequestParam(required = false) Set<String> amenities) {
+    public List<ApartmentResponseDto> getApartmentsByAmenities(@RequestParam(required = false) Set<String> amenities) {
         if (amenities != null && !amenities.isEmpty()) {
             return apartmentService.getAllByAmenities(amenities, amenities.size())
-                .stream()
-                .map(apartmentResponseDtoMapper::mapToDto)
-                .collect(Collectors.toList());
+                    .stream()
+                    .map(apartmentResponseDtoMapper::mapToDto)
+                    .collect(Collectors.toList());
         } else {
             return apartmentService.getAll()
-                .stream()
-                .map(apartmentResponseDtoMapper::mapToDto)
-                .collect(Collectors.toList());
+                    .stream()
+                    .map(apartmentResponseDtoMapper::mapToDto)
+                    .collect(Collectors.toList());
         }
     }
 
     @GetMapping("/price")
     public List<ApartmentResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
-                                                 @RequestParam BigDecimal to) {
+                                                            @RequestParam BigDecimal to) {
         return apartmentService.findAllByPriceBetween(from, to)
                 .stream()
                 .map(apartmentResponseDtoMapper::mapToDto)
@@ -58,8 +58,8 @@ public List<ApartmentResponseDto> getApartmentsByAmenities(@RequestParam(require
     }
 
     @GetMapping("/capacity")
-public List<ApartmentResponseDto> findAllByCapacityBetween(@RequestParam Integer from,
-                                                @RequestParam Integer to) {
+    public List<ApartmentResponseDto> findAllByCapacityBetween(@RequestParam Integer from,
+                                                               @RequestParam Integer to) {
         return apartmentService.findAllByCapacityBetween(from, to)
                 .stream()
                 .map(apartmentResponseDtoMapper::mapToDto)

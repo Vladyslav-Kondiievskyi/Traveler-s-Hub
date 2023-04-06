@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-//todo by Kostiantyn - Hotel, Order. DTO, repository, service
 
 @Getter
 @Setter
@@ -21,7 +20,7 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER)
     private List<Apartment> rooms;
     @OneToMany(mappedBy = "hotel", fetch = FetchType.LAZY)
     private List<Review> reviews;

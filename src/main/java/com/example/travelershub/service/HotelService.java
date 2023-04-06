@@ -1,5 +1,6 @@
 package com.example.travelershub.service;
 
+import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.model.Hotel;
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface HotelService {
     List<Hotel> findAllByCity(String city);
 
     List<Hotel> findAllOrderByReviewsCountDesc();
+
+    List<Hotel> filterHotels(FilterRequest filters);
 }
