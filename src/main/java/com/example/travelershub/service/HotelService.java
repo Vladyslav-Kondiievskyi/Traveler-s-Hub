@@ -1,8 +1,10 @@
 package com.example.travelershub.service;
 
 import com.example.travelershub.dto.request.filter.FilterRequest;
+import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
 import java.util.List;
+import java.util.Set;
 
 public interface HotelService {
     Hotel save(Hotel hotel);
@@ -24,4 +26,6 @@ public interface HotelService {
     List<Hotel> findAllOrderByReviewsCountDesc();
 
     List<Hotel> filterHotels(FilterRequest filters);
+
+    Set<String> getMainAmenities(List<Apartment> rooms);
 }

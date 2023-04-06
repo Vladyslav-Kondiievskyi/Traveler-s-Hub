@@ -22,5 +22,5 @@ public class FilterRequest {
     private Long reviews;
     private Byte stars;
     private LocalDate dateFrom;
-    private LocalDate dateTo;
+    private LocalDate dateTo;// todo та сортування по ціні, рекомендаціям, зіркам та рейтингу
 }

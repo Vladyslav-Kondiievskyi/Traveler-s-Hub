@@ -1,6 +1,7 @@
 package com.example.travelershub.dto.response;
 
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import lombok.Setter;
 public class HotelResponseDto {
     private Long id;
     private List<String> picturesUrl;
+    private Set<String> amenities;
     private String address;
     private String city;
     private String telephone;
