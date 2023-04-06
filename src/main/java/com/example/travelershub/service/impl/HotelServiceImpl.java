@@ -7,6 +7,9 @@ import com.example.travelershub.repository.HotelRepository;
 import com.example.travelershub.service.HotelService;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -64,6 +67,15 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public Set<String> getMainAmenities(List<Apartment> rooms) {
+        return rooms.stream()
+                .flatMap(room -> room.getAmenities().stream())
+                .distinct()
+                .limit(4)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    @Override
     public List<Hotel> filterHotels(FilterRequest filters) {
         Specification<Hotel> spec = buildSpecification(filters);
         List<Hotel> filteredHotels = hotelRepository.findAll(spec);
@@ -83,9 +95,7 @@ public class HotelServiceImpl implements HotelService {
                 .and(hotelRepository.isAvailable(filters.getDateFrom(), filters.getDateTo()));
     }
 
-    private void filterApartmentsByPriceRange(BigDecimal priceMin,
-                                              BigDecimal priceMax,
-                                              List<Hotel> hotels) {
+    private void filterApartmentsByPriceRange(BigDecimal priceMin, BigDecimal priceMax, List<Hotel> hotels) {
         for (Hotel hotel : hotels) {
             List<Apartment> apartments = hotel.getRooms();
             int minPriceIndex = findMinPriceIndex(priceMin, priceMax, apartments);
@@ -93,12 +103,12 @@ public class HotelServiceImpl implements HotelService {
                 Apartment minPriceApartment = apartments.get(minPriceIndex);
                 apartments.set(minPriceIndex, apartments.get(0));
                 apartments.set(0, minPriceApartment);
-                hotel.setRooms(apartments.subList(0, 1));
             }
         }
     }
 
     private int findMinPriceIndex(BigDecimal priceMin, BigDecimal priceMax, List<Apartment> apartments) {
+        // Проходимо по всіх елементах списку та шукаємо перший елемент, що попадає в заданий діапазон цін
         for (int i = 0; i < apartments.size(); i++) {
             Apartment apartment = apartments.get(i);
             if (apartment.getPrice().compareTo(priceMin) >= 0
@@ -106,6 +116,7 @@ public class HotelServiceImpl implements HotelService {
                 return i;
             }
         }
+        // Якщо елемент, що попадає в діапазон цін, не знайдено, повертаємо -1
         return -1;
     }
 }
