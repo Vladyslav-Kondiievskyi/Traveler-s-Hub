@@ -10,9 +10,10 @@ import lombok.Setter;
 @Setter
 public class OrderResponseDto {
     private Long id;
-    private List<Long> roomsId;
+    private List<Long> apartmentsIds;
     private Long clientId;
     private BigDecimal amount;
     private LocalDate dateFrom;
     private LocalDate dateTo;
+    private boolean isConfirm;
 }

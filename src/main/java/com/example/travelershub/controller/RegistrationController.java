@@ -36,7 +36,6 @@ public class RegistrationController {
         user.setLastName(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setRoles(Collections.singleton(new Role(RoleName.USER)));
-
         userService.save(user);
 
         return "redirect:/login";

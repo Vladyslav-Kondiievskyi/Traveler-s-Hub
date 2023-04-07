@@ -1,27 +1,26 @@
 package com.example.travelershub.service.impl;
 
+import com.example.travelershub.config.PasswordEncoderProvider;
 import com.example.travelershub.model.User;
 import com.example.travelershub.repository.UserRepository;
 import com.example.travelershub.service.UserService;
 import java.util.Optional;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
     // todo need field of PasswordEncoder
     private final UserRepository userRepository;
-    private final PasswordEncoder encoder;
+    private final PasswordEncoderProvider encoder;
 
-    public UserServiceImpl(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoderProvider encoder) {
         this.userRepository = userRepository;
-        this.encoder = passwordEncoder;
+        this.encoder = encoder;
     }
 
     @Override
     public User save(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setPassword(encoder.getPasswordEncoder().encode(user.getPassword()));
         return userRepository.save(user);
     }
 
