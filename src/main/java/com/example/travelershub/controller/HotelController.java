@@ -1,5 +1,6 @@
 package com.example.travelershub.controller;
 
+import com.example.travelershub.dto.request.HotelRequestDto;
 import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.dto.response.HotelResponseDto;
 import com.example.travelershub.model.Apartment;
@@ -22,6 +23,8 @@ import java.util.stream.Collectors;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -88,6 +91,11 @@ public class HotelController {
                 .stream()
                 .map(hotelResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    @PostMapping ("/sort")
+    public List<HotelRequestDto> sortByAllParameter(@RequestBody List<HotelRequestDto> dto,@RequestParam String sortBy) {
+        return hotelService.sortHotels(dto,sortBy);
     }
 
     @GetMapping("/filters")
