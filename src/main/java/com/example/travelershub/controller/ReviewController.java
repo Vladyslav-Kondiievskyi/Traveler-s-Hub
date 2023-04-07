@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/reviews")
-@CrossOrigin(origins = {"*"})
+@CrossOrigin(origins = {"http://localhost:3000/booking","https://vanyachyzh.github.io/booking/"})
 public class ReviewController {
     private final ReviewService reviewService;
     private final ResponseDtoMapper<ReviewResponseDto, Review> responseDtoMapper;

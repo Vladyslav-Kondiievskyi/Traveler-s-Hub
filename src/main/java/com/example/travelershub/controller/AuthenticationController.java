@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000/booking","https://vanyachyzh.github.io/booking/"})
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final ResponseDtoMapper<UserResponseDto, User> userResponseDtoMapper;
