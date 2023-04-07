@@ -5,5 +5,7 @@ public enum ApartmentKind {
         VILLA,
         APARTMENT,
         BED,
-        HOUSE
+        TOWNHOUSE,
+        HOUSE,
+        TEPEE,
 }

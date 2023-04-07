@@ -101,8 +101,8 @@ public class HotelController {
             @RequestParam(required = false) Integer capacity,
             @RequestParam(required = false) Set<String> amenities,
             @RequestParam(required = false) List<String> apartmentType,
-            @RequestParam("dateFrom") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
-            @RequestParam("dateTo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTo,
+            @RequestParam(required = false,name = "dateFrom") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
+            @RequestParam(required = false,name = "dateTo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTo,
             @RequestParam(required = false) String sort) {
         FilterRequest filterRequest = new FilterRequest();
         filterRequest.setCity(city);
