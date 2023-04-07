@@ -30,4 +30,5 @@ public class ApartmentType {
     public ApartmentType(ApartmentKind apartmentKind) {
         this.apartmentKind = apartmentKind;
     }
+
 }

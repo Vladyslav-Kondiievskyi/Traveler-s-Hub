@@ -4,10 +4,13 @@ import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
 import com.example.travelershub.model.Order;
 import com.example.travelershub.model.Review;
+import com.example.travelershub.model.enumfolder.ApartmentKind;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
@@ -90,7 +93,9 @@ public interface HotelSpecification {
             }
             Join<Hotel, Apartment> apartmentJoin = root.join("rooms", JoinType.INNER);
             query.distinct(true);
-            return apartmentJoin.get("apartmentTypeId").in(apartmentTypes);
+            Expression<ApartmentKind> apartmentKindExpression = apartmentJoin.get("apartmentType").get("apartmentKind");
+            Predicate in = apartmentKindExpression.in(apartmentTypes.stream().map(ApartmentKind::valueOf).collect(Collectors.toSet()));
+            return in;
         };
     }
 
