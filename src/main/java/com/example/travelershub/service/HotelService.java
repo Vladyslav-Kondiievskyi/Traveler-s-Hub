@@ -1,5 +1,6 @@
 package com.example.travelershub.service;
 
+import com.example.travelershub.dto.request.HotelRequestDto;
 import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
@@ -28,4 +29,6 @@ public interface HotelService {
     List<Hotel> filterHotels(FilterRequest filters);
 
     Set<String> getMainAmenities(List<Apartment> rooms);
+
+    List<HotelRequestDto> sortHotels(List<HotelRequestDto> dto, String sortBy);
 }

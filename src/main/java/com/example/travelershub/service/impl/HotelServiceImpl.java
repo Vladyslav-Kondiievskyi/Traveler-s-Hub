@@ -1,11 +1,14 @@
 package com.example.travelershub.service.impl;
 
+import com.example.travelershub.dto.request.HotelRequestDto;
 import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
 import com.example.travelershub.repository.HotelRepository;
 import com.example.travelershub.service.HotelService;
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -73,6 +76,36 @@ public class HotelServiceImpl implements HotelService {
                 .distinct()
                 .limit(4)
                 .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public List<HotelRequestDto> sortHotels(List<HotelRequestDto> hotels, String sortBy) {
+        boolean ascendingOrder = true;
+        if (sortBy.endsWith(" desc")) {
+            ascendingOrder = false;
+            sortBy = sortBy.substring(0, sortBy.length() - 5).trim();
+        } else if (sortBy.endsWith(" asc")) {
+            sortBy = sortBy.substring(0, sortBy.length() - 4).trim();
+        }
+        switch (sortBy) {
+            case "price":
+                hotels.sort(Comparator.comparing(hotel -> hotel.getPrice()));
+                break;
+            case "recommended":
+                hotels.sort(Comparator.comparingInt(hotel -> Math.toIntExact(hotel.getAllReviews())));
+                break;
+            case "stars":
+                hotels.sort(Comparator.comparing(value -> value.getStars()));
+                break;
+            case "rating":
+                hotels.sort(Comparator.comparing(hotel -> hotel.getRating()));
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown sort option: " + sortBy);
+        }
+        if (!ascendingOrder) {
+            Collections.reverse(hotels);
+        }
+        return hotels;
     }
 
     @Override
