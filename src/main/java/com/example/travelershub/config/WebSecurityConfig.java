@@ -2,50 +2,53 @@ package com.example.travelershub.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
+@CrossOrigin(origins = {"http://localhost:3000/booking","https://vanyachyzh.github.io/booking/"})
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final UserDetailsService userDetailsService;
-    private final PasswordEncoderProvider passwordEncoder;
 
-    public WebSecurityConfig(@Qualifier("customUserDetailsService") UserDetailsService userDetailsService,
-                             PasswordEncoderProvider passwordEncoder) {
+    private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+
+    public WebSecurityConfig(@Qualifier("customUserDetailsService") UserDetailsService userDetailsService, @Lazy PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder.getPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                //.anyRequest().authenticated()
-                //.and()
-                //.oauth2Login();
-                // http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/orders/my_unconfirmed_orders").authenticated()
-                .antMatchers(HttpMethod.POST, "/orders/complete").authenticated()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/*").permitAll()
                 //.antMatchers(HttpMethod.POST, "/register").permitAll()
-                //.anyRequest().authenticated()
+                // .antMatchers(HttpMethod.POST, "/order/complete").hasRole("USER")
+                // .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                //.failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .permitAll()
                 .and()
-                .httpBasic()
-                .and()
-                //.oauth2Login().and()
+                //                .oauth2Login()
+                //                .and()
                 .csrf()
                 .disable();
     }
