@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/orders")
-@CrossOrigin(origins = {"http://localhost:3000/booking","https://vanyachyzh.github.io/booking/"})
+@CrossOrigin(origins = {"*"})
 public class OrderController {
     private final OrderService orderService;
     private final UserService userService;
