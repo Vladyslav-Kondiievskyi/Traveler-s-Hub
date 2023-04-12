@@ -33,7 +33,7 @@ public class ApartmentController {
         this.apartmentTypeService = apartmentTypeService;
     }
 
-    @GetMapping
+    @GetMapping("/get_by_ameneties")
     public List<ApartmentResponseDto> getApartmentsByAmenities(@RequestParam(required = false) Set<String> amenities) {
         if (amenities != null && !amenities.isEmpty()) {
             return apartmentService.getAllByAmenities(amenities, amenities.size())

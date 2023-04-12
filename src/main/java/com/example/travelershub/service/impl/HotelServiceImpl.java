@@ -4,12 +4,18 @@ import com.example.travelershub.dto.request.HotelRequestDto;
 import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
+import com.example.travelershub.model.Review;
 import com.example.travelershub.repository.HotelRepository;
+import com.example.travelershub.repository.ReviewRepository;
 import com.example.travelershub.service.HotelService;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -18,10 +24,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HotelServiceImpl implements HotelService {
+    private static final Float MAX_RATING = 5.0f;
     private final HotelRepository hotelRepository;
+    private final ReviewRepository reviewRepository;
 
-    public HotelServiceImpl(HotelRepository hotelRepository) {
+    public HotelServiceImpl(HotelRepository hotelRepository, ReviewRepository reviewRepository) {
         this.hotelRepository = hotelRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     @Override
@@ -32,6 +41,18 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public Hotel getById(Long id) {
         return hotelRepository.findById(id).get();
+    }
+
+    @Override
+    public Hotel updateRating(Long hotelId) {
+        Hotel hotelFromDB = hotelRepository.findById(hotelId).get();
+        List<Review> allByHotel_id = reviewRepository.getAllByHotel_Id(hotelId);
+        double averageRating = allByHotel_id.stream()
+                .map(Review::getRating)
+                .mapToDouble(Float::doubleValue)
+                .average().orElseThrow(() -> new NoSuchElementException("Reviews are absent"));
+        hotelFromDB.setRating((float) averageRating);
+        return hotelRepository.save(hotelFromDB);
     }
 
     @Override
@@ -106,6 +127,16 @@ public class HotelServiceImpl implements HotelService {
             Collections.reverse(hotels);
         }
         return hotels;
+    }
+
+    @Override
+    public Map<Float, Integer> countReviewsByRating(Long hotelId) {
+        Map<Float, Integer> ratingAmountHashMap = new HashMap<>();
+        for (int i = 0; i <= MAX_RATING; i++) {
+            Integer amountOfCurrentReviews = hotelRepository.countReviewsByRating(hotelId, (float) i);
+            ratingAmountHashMap.put((float) i, amountOfCurrentReviews);
+        }
+        return ratingAmountHashMap;
     }
 
     @Override
