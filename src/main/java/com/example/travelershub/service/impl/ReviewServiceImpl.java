@@ -4,6 +4,7 @@ import com.example.travelershub.model.Hotel;
 import com.example.travelershub.model.Review;
 import com.example.travelershub.repository.HotelRepository;
 import com.example.travelershub.repository.ReviewRepository;
+import com.example.travelershub.service.HotelService;
 import com.example.travelershub.service.ReviewService;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,11 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
-    private final HotelRepository hotelRepository;
+    private final HotelService hotelService;
 
-    public ReviewServiceImpl(ReviewRepository reviewRepository, HotelRepository hotelRepository) {
+    public ReviewServiceImpl(ReviewRepository reviewRepository, HotelService hotelService) {
         this.reviewRepository = reviewRepository;
-        this.hotelRepository = hotelRepository;
+        this.hotelService = hotelService;
     }
 
     @Override
@@ -47,13 +48,13 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void addReviewToHotel(Long hotelId, Review review) {
-        Hotel hotel = hotelRepository.findById(hotelId)
-                .orElseThrow(() -> new RuntimeException("Hotel not found with id " + hotelId));
+        Hotel hotel = hotelService.getById(hotelId);
         List<Review> reviews = hotel.getReviews();
         reviews.add(review);
         review.setHotel(hotel);
         hotel.setReviews(reviews);
         reviewRepository.save(review);
-        hotelRepository.save(hotel);
+        hotelService.save(hotel);
+        hotelService.updateRating(hotel.getId());
     }
 }

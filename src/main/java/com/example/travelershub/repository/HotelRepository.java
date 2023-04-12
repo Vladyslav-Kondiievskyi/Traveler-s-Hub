@@ -2,9 +2,12 @@ package com.example.travelershub.repository;
 
 import com.example.travelershub.model.Hotel;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,4 +25,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Long>,
 
     @Query("SELECT h FROM Hotel h JOIN h.reviews r GROUP BY h.id ORDER BY COUNT(r) DESC")
     List<Hotel> findAllOrderByReviewsCountDesc();
+
+    @Query("SELECT COUNT(r) FROM Hotel h JOIN h.reviews r WHERE h.id = :hotelId AND r.rating = :rating")
+    Integer countReviewsByRating(@Param("hotelId") Long hotelId, @Param("rating") Float rating);
 }

@@ -4,13 +4,18 @@ import com.example.travelershub.dto.request.HotelRequestDto;
 import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface HotelService {
     Hotel save(Hotel hotel);
 
     Hotel getById(Long id);
+
+    Hotel updateRating(Long hotelId);
 
     List<Hotel> getAll();
 
@@ -31,4 +36,6 @@ public interface HotelService {
     Set<String> getMainAmenities(List<Apartment> rooms);
 
     List<HotelRequestDto> sortHotels(List<HotelRequestDto> dto, String sortBy);
+
+    Map<Float, Integer> countReviewsByRating(Long hotelId);
 }
