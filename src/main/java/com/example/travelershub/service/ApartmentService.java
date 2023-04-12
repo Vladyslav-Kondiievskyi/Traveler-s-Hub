@@ -33,5 +33,5 @@ public interface ApartmentService {
 
     List<Apartment> findAllByPriceBetweenOrderByPriceDesc(BigDecimal from, BigDecimal to);
 
-    List<Apartment> findAvailableApartments(LocalDate dateFrom, LocalDate dateTo);
+    List<Apartment> findAvailableApartments(Long hotelId, Integer capacity, LocalDate dateFrom, LocalDate dateTo);
 }

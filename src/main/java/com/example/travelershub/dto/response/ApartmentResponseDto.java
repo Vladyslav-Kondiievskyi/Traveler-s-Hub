@@ -13,6 +13,7 @@ public class ApartmentResponseDto {
     private int number;
     private BigDecimal price;
     private int capacity;
+    private Long apartmentTypeId;
     private List<String> picturesUrl;
     private Set<String> amenities;
     private String hotelName;

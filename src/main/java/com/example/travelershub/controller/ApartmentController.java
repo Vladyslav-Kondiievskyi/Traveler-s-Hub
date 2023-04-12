@@ -120,9 +120,11 @@ public class ApartmentController {
 
     @GetMapping("/available")
     public List<ApartmentResponseDto> findAvailableApartments(
+            @RequestParam("hotel_id") Long hotelId,
+            @RequestParam("capacity") Integer capacity,
             @RequestParam("dateFrom") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
             @RequestParam("dateTo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTo) {
-        return apartmentService.findAvailableApartments(dateFrom, dateTo)
+        return apartmentService.findAvailableApartments(hotelId, capacity, dateFrom, dateTo)
                 .stream()
                 .map(apartmentResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
