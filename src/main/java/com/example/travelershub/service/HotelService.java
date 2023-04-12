@@ -4,8 +4,6 @@ import com.example.travelershub.dto.request.HotelRequestDto;
 import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
-import org.springframework.data.repository.query.Param;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

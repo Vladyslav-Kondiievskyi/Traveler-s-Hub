@@ -2,7 +2,6 @@ package com.example.travelershub.service.impl;
 
 import com.example.travelershub.model.Hotel;
 import com.example.travelershub.model.Review;
-import com.example.travelershub.repository.HotelRepository;
 import com.example.travelershub.repository.ReviewRepository;
 import com.example.travelershub.service.HotelService;
 import com.example.travelershub.service.ReviewService;

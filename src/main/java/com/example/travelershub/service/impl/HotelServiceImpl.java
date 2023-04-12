@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -46,8 +45,8 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public Hotel updateRating(Long hotelId) {
         Hotel hotelFromDB = hotelRepository.findById(hotelId).get();
-        List<Review> allByHotel_id = reviewRepository.getAllByHotel_Id(hotelId);
-        double averageRating = allByHotel_id.stream()
+        List<Review> allByHotelId = reviewRepository.getAllByHotel_Id(hotelId);
+        double averageRating = allByHotelId.stream()
                 .map(Review::getRating)
                 .mapToDouble(Float::doubleValue)
                 .average().orElseThrow(() -> new NoSuchElementException("Reviews are absent"));

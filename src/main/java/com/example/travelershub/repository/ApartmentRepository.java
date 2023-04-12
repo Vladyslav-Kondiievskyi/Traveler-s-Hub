@@ -23,10 +23,12 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Long>,
             + "HAVING COUNT(DISTINCT amenity) = :amenitiesSize")
     List<Apartment> findByAmenitiesIn(Set<String> amenities, @Param("amenitiesSize") long amenitiesSize);
 
-    @Query("FROM Apartment a WHERE NOT EXISTS "
+    @Query("FROM Apartment a WHERE a.capacity = :capacity AND a.hotel.id = :hotelId AND NOT EXISTS "
             + "(SELECT o.id FROM Order o JOIN o.apartments oa WHERE oa.id = a.id AND "
             + "((o.dateFrom <= :dateTo) AND (o.dateTo >= :dateFrom)))")
     List<Apartment> findAvailableApartments(
+            @Param("hotelId") Long hotelId,
+            @Param("capacity") Integer capacity,
             @Param("dateFrom") LocalDate dateFrom,
             @Param("dateTo") LocalDate dateTo);
 

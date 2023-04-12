@@ -79,7 +79,7 @@ public class ApartmentServiceImpl implements ApartmentService {
     }
 
     @Override
-    public List<Apartment> findAvailableApartments(LocalDate dateFrom, LocalDate dateTo) {
-        return apartmentRepository.findAvailableApartments(dateFrom, dateTo);
+    public List<Apartment> findAvailableApartments(Long hotelId, Integer capacity, LocalDate dateFrom, LocalDate dateTo) {
+        return apartmentRepository.findAvailableApartments(hotelId, capacity, dateFrom, dateTo);
     }
 }
