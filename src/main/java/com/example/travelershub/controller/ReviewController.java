@@ -7,7 +7,6 @@ import com.example.travelershub.service.HotelService;
 import com.example.travelershub.service.ReviewService;
 import com.example.travelershub.service.mapper.RequestDtoMapper;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
