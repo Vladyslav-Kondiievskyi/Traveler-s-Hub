@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 public class ApartmentResponseDto {
     private Long id;
+    private String name;
     private int number;
     private BigDecimal price;
     private int capacity;
