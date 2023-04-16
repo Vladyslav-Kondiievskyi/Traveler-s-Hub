@@ -8,6 +8,8 @@ import com.example.travelershub.service.UserService;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
 import java.util.Random;
 import java.util.Set;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +48,12 @@ public class UserController {
     @GetMapping("/delete/{id}")
     public UserResponseDto deleteById(@PathVariable Long id) {
         User user = userService.get(id);
+        return userResponseDtoMapper.mapToDto(user);
+    }
+
+    @GetMapping("/user")
+    public UserResponseDto getCurrentUser(Authentication auth) {
+        User user = userService.findByEmail(auth.getName()).get();
         return userResponseDtoMapper.mapToDto(user);
     }
 
