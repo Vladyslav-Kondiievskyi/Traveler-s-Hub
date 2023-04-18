@@ -1,6 +1,6 @@
 package com.example.travelershub.controller;
 
-import com.example.travelershub.dto.request.userdto.UserRegistrationRequestDto;
+import com.example.travelershub.dto.request.UserRegistrationRequestDto;
 import com.example.travelershub.dto.response.UserResponseDto;
 import com.example.travelershub.model.User;
 import com.example.travelershub.service.AuthenticationService;

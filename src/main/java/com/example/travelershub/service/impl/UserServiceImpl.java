@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-    // todo need field of PasswordEncoder
     private final UserRepository userRepository;
     private final PasswordEncoderProvider encoder;
 
@@ -26,21 +25,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(Long id) {
-        return userRepository.getReferenceById(id);
+        return userRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("User with id " + id + " not found"));
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
         return Optional.ofNullable(userRepository.findUserByEmail(email));
-    }
-
-    @Override
-    public User delete(Long id) {
-        return userRepository.deleteUserById(id);
-    }
-
-    @Override
-    public User findByName(String name) {
-        return userRepository.findUserByFirstName(name);
     }
 }

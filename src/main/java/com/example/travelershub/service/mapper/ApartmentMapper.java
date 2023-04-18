@@ -15,7 +15,6 @@ public class ApartmentMapper implements ResponseDtoMapper<ApartmentResponseDto, 
         dto.setName(apartment.getName());
         dto.setPrice(apartment.getPrice());
         dto.setCapacity(apartment.getCapacity());
-        dto.setPicturesUrl(apartment.getPicturesUrl());
         dto.setApartmentTypeId(apartment.getApartmentType().getId());
         dto.setAmenities(apartment.getAmenities());
         dto.setHotelName(apartment.getHotel().getName());

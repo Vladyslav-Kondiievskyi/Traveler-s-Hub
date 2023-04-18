@@ -1,7 +1,6 @@
 package com.example.travelershub.model;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-//todo Vladyslav - Room, User. DTO, repository, service
 @Getter
 @Setter
 @Entity
@@ -27,8 +25,6 @@ public class Apartment {
     private Integer number;
     private BigDecimal price;
     private Integer capacity;
-    @ElementCollection
-    private List<String> picturesUrl;
     @ElementCollection
     private Set<String> amenities;
     @ManyToOne
