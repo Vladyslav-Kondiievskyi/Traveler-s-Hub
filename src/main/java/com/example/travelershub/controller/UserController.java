@@ -2,7 +2,6 @@ package com.example.travelershub.controller;
 
 import com.example.travelershub.dto.response.UserResponseDto;
 import com.example.travelershub.model.User;
-import com.example.travelershub.service.RoleService;
 import com.example.travelershub.service.UserService;
 import com.example.travelershub.service.mapper.ResponseDtoMapper;
 import org.springframework.security.core.Authentication;
