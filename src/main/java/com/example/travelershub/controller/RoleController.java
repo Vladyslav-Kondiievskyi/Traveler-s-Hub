@@ -3,14 +3,15 @@ package com.example.travelershub.controller;
 import com.example.travelershub.model.Role;
 import com.example.travelershub.model.enumfolder.RoleName;
 import com.example.travelershub.service.RoleService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-// todo need after create-drop and need validate DISTINCT
 @RestController
 @RequestMapping("/roles")
+@CrossOrigin(origins = {"*"})
 public class RoleController {
     private final RoleService roleService;
 

@@ -128,7 +128,7 @@ public class HotelController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("sort_reviews_by_hotel{hotelId}")
+    @GetMapping("/sort_reviews_by_hotel{hotelId}")
     public Map<Float, Integer> getReviewMapByHotelId(@PathVariable Long hotelId) {
         return hotelService.countReviewsByRating(hotelId);
     }

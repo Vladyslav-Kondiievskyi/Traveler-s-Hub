@@ -18,13 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = {"*"})
 public class UserController {
     private final UserService userService;
-    private final RoleService roleService;
     private final ResponseDtoMapper<UserResponseDto, User> userResponseDtoMapper;
 
     public UserController(UserService userService,
-                          RoleService roleService, ResponseDtoMapper<UserResponseDto, User> userResponseDtoMapper) {
+                          ResponseDtoMapper<UserResponseDto, User> userResponseDtoMapper) {
         this.userService = userService;
-        this.roleService = roleService;
         this.userResponseDtoMapper = userResponseDtoMapper;
     }
 
@@ -43,7 +41,9 @@ public class UserController {
 
     @GetMapping("/user")
     public UserResponseDto getCurrentUser(Authentication auth) {
-        User user = userService.findByEmail(auth.getName()).get();
+        User user = userService.findByEmail(auth.getName()).orElseThrow(
+                () -> new RuntimeException("User is not authenticate")
+        );
         return userResponseDtoMapper.mapToDto(user);
     }
 }
