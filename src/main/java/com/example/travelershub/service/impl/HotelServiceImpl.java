@@ -131,8 +131,8 @@ public class HotelServiceImpl implements HotelService {
     @Override
     public Map<Float, Integer> countReviewsByRating(Long hotelId) {
         Map<Float, Integer> ratingAmountHashMap = new HashMap<>();
-        for (int i = 0; i <= MAX_RATING; i++) {
-            Integer amountOfCurrentReviews = hotelRepository.countReviewsByRating(hotelId, (float) i);
+        for (int i = 1; i <= MAX_RATING; i++) {
+            Integer amountOfCurrentReviews = hotelRepository.countReviewsByRating(hotelId, i);
             ratingAmountHashMap.put((float) i, amountOfCurrentReviews);
         }
         return ratingAmountHashMap;
