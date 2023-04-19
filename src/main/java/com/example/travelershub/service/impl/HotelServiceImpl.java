@@ -1,7 +1,7 @@
 package com.example.travelershub.service.impl;
 
+import com.example.travelershub.dto.request.FilterRequest;
 import com.example.travelershub.dto.request.HotelRequestDto;
-import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
 import com.example.travelershub.model.Review;
@@ -43,7 +43,7 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public Hotel updateRating(Long hotelId) {
+    public void updateRating(Long hotelId) {
         Hotel hotelFromDB = hotelRepository.findById(hotelId).get();
         List<Review> allByHotelId = reviewRepository.getAllByHotel_Id(hotelId);
         double averageRating = allByHotelId.stream()
@@ -51,7 +51,7 @@ public class HotelServiceImpl implements HotelService {
                 .mapToDouble(Float::doubleValue)
                 .average().orElseThrow(() -> new NoSuchElementException("Reviews are absent"));
         hotelFromDB.setRating((float) averageRating);
-        return hotelRepository.save(hotelFromDB);
+        hotelRepository.save(hotelFromDB);
     }
 
     @Override
