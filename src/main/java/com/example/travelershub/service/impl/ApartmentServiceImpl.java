@@ -30,7 +30,9 @@ public class ApartmentServiceImpl implements ApartmentService {
 
     @Override
     public Apartment getById(Long id) {
-        return apartmentRepository.findById(id).get();
+        return apartmentRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Apartment by id " + id + " not found")
+        );
     }
 
     @Override

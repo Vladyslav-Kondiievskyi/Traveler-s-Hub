@@ -1,7 +1,6 @@
 package com.example.travelershub.service.impl;
 
 import com.example.travelershub.model.Order;
-import com.example.travelershub.model.User;
 import com.example.travelershub.repository.OrderRepository;
 import com.example.travelershub.service.OrderService;
 import java.util.List;
@@ -26,16 +25,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order update(Order order) {
-        return null;
-    }
-
-    @Override
-    public List<Order> findAllByClient(User client) {
-        return orderRepository.findAllByClient(client);
-    }
-
-    @Override
     public List<Order> findAllByClientIdAndConfirmIsFalse(Long clientId) {
         return orderRepository.findAllByClientIdAndConfirmIsFalse(clientId);
     }
@@ -46,10 +35,5 @@ public class OrderServiceImpl implements OrderService {
         orderFromDb.setConfirm(true);
         orderRepository.save(orderFromDb);
         return orderFromDb;
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        orderRepository.deleteById(id);
     }
 }

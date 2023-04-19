@@ -1,7 +1,7 @@
 package com.example.travelershub.service;
 
+import com.example.travelershub.dto.request.FilterRequest;
 import com.example.travelershub.dto.request.HotelRequestDto;
-import com.example.travelershub.dto.request.filter.FilterRequest;
 import com.example.travelershub.model.Apartment;
 import com.example.travelershub.model.Hotel;
 import java.util.List;
@@ -13,7 +13,7 @@ public interface HotelService {
 
     Hotel getById(Long id);
 
-    Hotel updateRating(Long hotelId);
+    void updateRating(Long hotelId);
 
     List<Hotel> getAll();
 

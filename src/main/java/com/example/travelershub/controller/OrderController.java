@@ -38,7 +38,9 @@ public class OrderController {
     @PostMapping("/complete")
     OrderResponseDto completeOrder(Authentication auth, @RequestBody OrderRequestDto requestDto) {
         String email = auth.getName();
-        User user = userService.findByEmail(email).get();
+        User user = userService.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("User with email " + email + " not found")
+        );
         Order order = requestDtoMapper.mapToModel(requestDto);
         order.setClient(user);
         orderService.save(order);
@@ -48,7 +50,9 @@ public class OrderController {
     @GetMapping("/my_unconfirmed_orders")
     List<OrderResponseDto> getUnconfirmedOrders(Authentication auth) {
         String email = auth.getName();
-        User user = userService.findByEmail(email).get();
+        User user = userService.findByEmail(email).orElseThrow(
+                () -> new RuntimeException("User with email " + email + " not found")
+        );
         List<Order> allByClientIdAndConfirmIsFalse = orderService.findAllByClientIdAndConfirmIsFalse(user.getId());
         return allByClientIdAndConfirmIsFalse.stream()
                 .map(responseDtoMapper::mapToDto)
@@ -59,5 +63,4 @@ public class OrderController {
     OrderResponseDto confirmOrder(@PathVariable Long orderId) {
         return responseDtoMapper.mapToDto(orderService.confirmOrder(orderService.getById(orderId)));
     }
-    //todo calendar for free room
 }

@@ -1,4 +1,4 @@
-package com.example.travelershub.dto.request.filter;
+package com.example.travelershub.dto.request;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,5 +22,5 @@ public class FilterRequest {
     private Long reviews;
     private Byte stars;
     private LocalDate dateFrom;
-    private LocalDate dateTo;// todo та сортування по ціні, рекомендаціям, зіркам та рейтингу
+    private LocalDate dateTo;
 }

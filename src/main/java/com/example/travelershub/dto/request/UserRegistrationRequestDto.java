@@ -1,4 +1,4 @@
-package com.example.travelershub.dto.request.userdto;
+package com.example.travelershub.dto.request;
 
 import com.example.travelershub.lib.ValidEmail;
 import javax.validation.constraints.Size;
